@@ -1,0 +1,372 @@
+:root {
+  --paragraphWidth: min(35rem, 90vw);
+  --zIndexWorkInProgressBottom: -1;
+  --zIndexParagraphHover: 2;
+  --zIndexWorkInProgress: 3;
+  --zIndexGithub: 4;
+  --zIndexFullscreen: 5;
+}
+
+@font-face {
+  font-family: 'Zilla Slab';
+  src: url('fonts/Zilla_Slab/ZillaSlab-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('fonts/Merriweather/Merriweather-Regular.ttf') format('truetype');
+}
+
+body {
+  background-color: var(--backgroundColour);
+  cursor: url('./pizzaCursor.png'), pointer;
+}
+
+body, body * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  /*font-family: 'Zilla Slab', serif;*/
+  font-variation-settings: 'wght' 200;
+  transition: color 1s, fill 1s, opacity 1s;
+}
+
+h1 {
+  /*font-family: 'Noto Serif KR', serif;*/
+  /*font-family: 'Zilla Slab', serif;*/
+  font-size: 1.75rem;
+}
+
+html {
+  scroll-snap-type: y proximity;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.centerCross {
+  display: flex;
+  align-items: center;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.fullWidth { width: 100%}
+
+.paragraphContent *{
+  white-space: pre-line;
+}
+
+button {
+  outline: none;
+}
+
+.clickable:hover, button:hover{
+  cursor: pointer;
+}
+
+#mainContent{
+  width: 100%;
+  /*max-width: var(--paragraphWidth);*/
+}
+
+.mobileShort {
+  width: var(--paragraphWidth);
+}
+
+#tabButtons{
+  height: 4rem;
+  /*background-color: aquamarine;*/
+  background-color: transparent;
+}
+
+#tabButtons > button{
+  /*background-color: aquamarine;*/
+  transition: background-color 1s;
+  background-color: var(--backgroundColour);
+  font-size: 1.5rem;
+  color: white;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0.25rem;
+  border: solid thin white;
+}
+
+#tabButtons > button:hover, #tabButtons > button.selected{
+  /*background-color: lightseagreen;*/
+  background-color: var(--buttonSelectedColour);
+}
+
+.paragraphImg, .paragraph{
+  transition: transform 1s;
+}
+
+.paragraphImg{
+  position: relative;
+  margin-top: 1.5rem;
+  background-color: var(--paragraphColour);
+  border-radius: 1rem;
+  /*scroll-snap-align: center;*/
+  box-shadow: 0 0 0.5rem -0.2rem #000;
+  width: min(90%, 800px);
+}
+
+.paragraphImg .bottomHalf {
+  width: 100%;
+  margin-top: 1.5rem;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0.5rem 1.5rem 0 1.5rem;
+  border-radius: 0 0 1rem 1rem;
+  background-color: var(--grey100);
+}
+
+.bottomHalf > * {
+  flex: 1 1 0px;
+}
+
+.paragraph{
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--paragraphColour);
+  border-radius: 1rem;
+  /*scroll-snap-align: center;*/
+  box-shadow: 0 0 0.5rem -0.2rem #000;
+}
+
+.paragraphContent {
+  margin-bottom: 0.5rem;
+}
+/*
+.paragraphImg:hover, .paragraph:hover{
+  transform: scale(1.03);
+  z-index:100;
+}
+*/
+
+.paragraph:hover{
+  transform: scale(1.03);
+  z-index: var(--zIndexParagraphHover);
+}
+
+.paragraphImg > img{
+  width: 100%;
+  border-radius: 1rem 1rem 0 0;
+  border-bottom: solid thin whitesmoke;
+}
+
+.paragraphImgPadding{
+  padding: 0 1rem 1rem 1rem;
+}
+
+/*header {
+  scroll-snap-align: start;
+}*/
+
+.paragraph:last-child{
+  margin-bottom: 2rem;
+}
+
+.paragraph h1, .paragraphImg h1{
+  margin-top: 0;
+  /*text-align: center;*/
+  margin-bottom: 0.5rem;
+  /*color: royalblue;*/
+  color: var(--headingColour);
+  /*color: var(--backgroundColour);*/
+  font-variation-settings: 'wght' 400;
+}
+
+.paragraphImg h1 {
+  align-self: flex-start;
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+.paragraphContent .arrowRight {
+  color: var(--buttonSelectedColour);
+  height: 1rem;
+  max-width: 1rem;
+  min-width: 1rem;
+  margin-top: 0.15rem;
+  margin-right: 0.5rem;
+}
+
+.paragraphContent div:first-child {
+  margin-top: 1rem;
+}
+
+.paragraphContent p {
+  font-size: 14px;
+  margin: 0 0rem 1.35rem 0;
+  line-height: 1.5;
+  color: var(--gray900);
+  font-variation-settings: 'wght' 400;
+}
+
+/*
+.paragraphImg:not(:hover) .slideshowNodesContainer {
+  opacity: 0;
+}
+*/
+
+.url {
+  text-align: center;
+  height: 1.5rem;
+  width: 95%;
+  position: relative;
+  padding: 0.1rem;
+  border-radius: 1.5rem;
+  background-color: var(--gray200);
+  color: var(--gray800);
+  font-size: 13px;
+  font-variation-settings: 'wght' 300;
+  text-decoration: none;
+  overflow: hidden;
+  margin-left: 0.15rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.url svg {
+  color: var(--grey700);
+  height: 1rem;
+}
+.url svg.link {
+}
+
+.url svg.search {
+  position: absolute;
+  right: 0.2rem;
+}
+
+.techStack {
+  margin: 1rem;
+}
+
+.techStackTitle {
+  margin-right: 0.5rem;
+}
+
+.techStackTitle > p {
+  font-variation-settings: 'wght' 600;
+  color: var(--grey900);
+  font-size: 13px;
+  width: 4.1rem;
+  margin-left: 0.25rem !important;
+}
+
+.techStackTitle svg{
+  height: 2rem;
+  width: 2rem;
+  margin: 0.2rem;
+}
+
+.superTechType {
+  background-color: var(--grey300);
+  padding: 0.4rem;
+  border-radius: 1rem;
+  margin-left: 0.5rem;
+}
+
+.superTechTypeName > p{
+  font-weight: 600;
+  font-variation-settings: 'wght' 400;
+}
+
+.superTechType svg, .superTechType img {
+  height: 1rem;
+  width: 1rem;
+  object-fit: contain;
+  margin-right: 0.2rem;
+}
+
+
+.subType{
+  background-color: white;
+  border-radius: 1rem;
+  margin-top: 0.4rem;
+  padding: 0.4rem;
+}
+
+.subType + .subType {
+  margin-left: 0.4rem;
+}
+
+.tech p {
+  margin: 0;
+}
+
+.superTechType p {
+  font-size: 0.7rem;
+  margin-right: 0.25rem;
+}
+
+.paragraphImg .ribbonTop, .paragraphImg .ribbonBottom {
+  position: absolute;
+  color: var(--buttonSelectedColour);
+}
+
+.paragraphImg .ribbonTop {
+  width: 10rem;
+  top: -0.5rem;
+  right: -0.5rem;
+}
+
+.paragraphImg .ribbonBottom {
+  width: 6.7rem;
+  top: -0.48rem;
+  right: -0.48rem;
+  z-index: var(--zIndexWorkInProgressBottom);
+}
+
+.workInProgress {
+  position: absolute;
+  transform: rotate(45deg);
+  top: 2.3rem;
+  right: -0.5rem;
+  z-index: var(--zIndexWorkInProgress);
+}
+
+.workInProgress p {
+  color: white;
+  font-variation-settings: 'wght' 600;
+}
+
+.githubContainer {
+  opacity: 0.25;
+  position: absolute;
+  z-index: var(--zIndexGithub);
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.githubContainer svg{
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+
+
+@media only screen and (orientation: portrait) {
+	/*:root {
+		--paragraphWidth: 90vw !important;
+	}*/
+
+	/*html {
+		font-size: 11px;
+	}*/
+}

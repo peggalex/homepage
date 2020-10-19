@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'Retro Stereo Wide';
+    src: url('../../fonts/retro_stereo_wide/Retro\ Stereo\ Wide.ttf');
+}
+
+@font-face {
+    font-family: 'anpuit';
+    src: url('../../fonts/ArTarumianAnpuit/ANPUIT.TTF');
+}
+
+.retroAlex {
+    font-size: 96px;
+    transform: translate(270px, 120px);
+    font-family: anpuit;
+    fill: #FFEBD0;
+}
+
+#scrollable1 {
+    animation: scrollable1 linear 10s -5s infinite;
+}
+
+#scrollable2 {
+    animation: scrollable2 linear 10s infinite;
+}
+@keyframes scrollable1{
+    from {
+        transform: translate(1000px, 0px);
+    } to {
+        transform: translate(-1000px, 0px);
+    }
+}
+@keyframes scrollable2{
+    from {
+        transform: translate(0px, 0px);
+    } to {
+        transform: translate(-2000px, 0px);
+    }
+}
+
+#mealsOnWheels > g {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: turn 1s linear infinite;
+}
+
+@keyframes turn{
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+}
+
+#bodyGroup {
+    animation: carBob 1s ease-in-out alternate infinite;
+}
+
+/*
+@keyframes bob{
+    0% {
+        transform: translate(0px, 0px);
+    } 80% {
+        transform: translate(0px, 0px);
+    } 100% {
+        transform: translate(0px, -1px);
+    }
+}
+*/
+@keyframes carBob{
+    from {
+        transform: translate(0px, 0px);
+    } to {
+        transform: translate(0px, -1.5px);
+    }
+}
