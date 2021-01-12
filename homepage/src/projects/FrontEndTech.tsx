@@ -21,6 +21,11 @@ class WebSubType extends FrontEndTechSubType {}
 		Icons.React
 	)
 
+	export const TypeScriptSubType = new WebSubType(
+		"TypeScript",
+		<img src="./typescriptIcon.png"></img>
+	)
+
 export class WebTech extends FrontEndTechType<WebSubType>{
 	name = "Web";
 	icon = Icons.Web;

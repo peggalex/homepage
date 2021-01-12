@@ -153,7 +153,7 @@ export function Slideshow({slideshowElementObjs}:
                 />
             ))}
         </div>
-        <div className='slideshow row centerCross'>
+        <div className='slideshow row center centerCross'>
             <div className='clickable' onClick={()=>setIndex(shiftIndexLeft(index, length))}>
                 {Icons.ChevronLeft}
             </div>

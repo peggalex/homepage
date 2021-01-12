@@ -16,7 +16,7 @@ import './exampleCobb.png';
 import './micrographerDemo1.gif';
 import $ from 'jquery';
 import Icons from './icons';
-import { Projects } from './projects/Projects';
+import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
 import { noTabs, elementIfParam } from './Utilities';
 
@@ -122,7 +122,7 @@ function WorkInProgressElement(){
 	</> 
 }
 
-function ParagraphImg({heading, isWorkInProgress, bulletPoints, slideshowElementObjs, url, github, tech}: { 
+function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowElementObjs, url, github, tech}: { 
 			heading: string, 
 			isWorkInProgress: boolean
 			bulletPoints: JSX.Element[], 
@@ -133,16 +133,37 @@ function ParagraphImg({heading, isWorkInProgress, bulletPoints, slideshowElement
 		}): JSX.Element {
 
 	return (
-		<div className={'paragraphImg col center centerCross'}>
-			<h1 className='paragraphHeading'>{heading}</h1>
-			{elementIfParam(url, <Url url={url!}/>)}
-			{elementIfParam(github, <GithubElement src={github!}/>)}
-			<Slideshow slideshowElementObjs={slideshowElementObjs}/>
-			<div className='bottomHalf row'>
-				{elementIfParam(tech, <TechElement tech={tech!}/>)}
+		<a id={(heading as any).replaceAll(' ', '')} className='projectAnchor col centerCross'>
+			<div className={'project col center centerCross'}>
+				<h1 className='paragraphHeading'>{heading}</h1>
+				{elementIfParam(url, <Url url={url!}/>)}
+				{elementIfParam(github, <GithubElement src={github!}/>)}
+				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
+				<div className='bottomHalf row'>
+					{elementIfParam(tech, <TechElement tech={tech!}/>)}
+					<BulletPointsElement bulletPoints={bulletPoints}/>
+				</div>
+				{isWorkInProgress ? <WorkInProgressElement/> : null}
+			</div>
+		</a>
+	);
+}
+
+function DesignElement({heading, bulletPoints, slideshowElementObjs}: { 
+	heading: string, 
+	bulletPoints: JSX.Element[], 
+	slideshowElementObjs: SlideshowElementObj[]
+}): JSX.Element {
+
+	return (
+		<div className={'design row center centerCrossStretch'}>
+			<div className="leftHalf col">
+				<h1 className='paragraphHeading'>{heading}</h1>
 				<BulletPointsElement bulletPoints={bulletPoints}/>
 			</div>
-			{isWorkInProgress ? <WorkInProgressElement/> : null}
+			<div className='rightHalf col center centerCross'>
+				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
+			</div>
 		</div>
 	);
 }
@@ -220,7 +241,7 @@ const aboutPage: JSX.Element = <>
 
 const projectPage: JSX.Element = <>
 	{Projects.map((proj) => 
-		<ParagraphImg 
+		<ProjectElement 
 			heading={proj.name} 
 			isWorkInProgress={proj.isWorkInProgress}
 			bulletPoints={proj.bulletPoints} 
@@ -228,6 +249,17 @@ const projectPage: JSX.Element = <>
 			url={proj.url}
 			github={proj.github}
 			tech={proj.tech}
+			key={JSON.stringify(proj)}
+		/>
+	)}
+</>
+
+const designPage: JSX.Element = <>
+	{Designs.map((proj) => 
+		<DesignElement 
+			heading={proj.name} 
+			bulletPoints={proj.bulletPoints} 
+			slideshowElementObjs={proj.images}
 			key={JSON.stringify(proj)}
 		/>
 	)}
@@ -282,6 +314,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 	const pages: { [key: string]: JSX.Element } = {
 		'about': aboutPage,
 		'projects': projectPage,
+		'designs': designPage,
 		'contact': contactPage,
 	};
 
