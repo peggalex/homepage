@@ -18,7 +18,7 @@ import $ from 'jquery';
 import Icons from './icons';
 import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
-import { noTabs, elementIfParam } from './Utilities';
+import { noTabs, elementIfParam, isMobile } from './Utilities';
 
 function TabButton({ name, selectedTab, selectTab }: { 
 			name: string, 
@@ -112,6 +112,62 @@ function BulletPointsElement({bulletPoints}: {bulletPoints: JSX.Element[]}){
 	</div>
 }
 
+
+function ProjectBottomHalfMobileElement({techElement, bulletPointsElement}: {
+			techElement: JSX.Element,
+			bulletPointsElement: JSX.Element
+		}){
+
+	interface _Tab {
+		icon: JSX.Element;
+		name: string;
+		content: JSX.Element;
+	}
+	const tabs: _Tab[] = [
+		{icon: Icons.Description, name: 'Description', content: bulletPointsElement}, 
+		{icon: Icons.Technology, name: 'Technology', content: techElement}, 
+	];
+
+	const [selectedTab, selectTab] = React.useState(tabs[0]);
+
+	return 	<>
+		<div className="bottomHalfButtons row">
+			{tabs.map(tab => (
+				<button 
+					className={(selectedTab.name == tab.name ? "selected" : "notSelected") + " row centerAll"} 
+					onClick={() => selectTab(tab)}
+				>
+					{tab.icon}
+					{tab.name}
+				</button>
+			))}
+		</div>
+		<div className="bottomHalfContent">
+			{selectedTab.content}
+		</div>
+	</>
+}
+
+function ProjectBottomHalfElement({tech, bulletPoints}: {
+			bulletPoints: JSX.Element[], 
+			tech?: TechStack<SuperTechType<TechType>>[]
+		}){
+	
+	let techElement = elementIfParam(tech, <TechElement tech={tech!}/>);
+	let bulletPointsElement = <BulletPointsElement bulletPoints={bulletPoints}/>;
+	return <div className='bottomHalf'>
+		{
+		!isMobile() || techElement == null ? <div className="bottomHalfContent row">
+				{techElement}
+				{bulletPointsElement}
+			</div> : <ProjectBottomHalfMobileElement
+				techElement={techElement!}
+				bulletPointsElement={bulletPointsElement}
+			/>
+	}
+	</div>
+}
+
 function WorkInProgressElement(){
 	return <>
 		<div className="workInProgress row">
@@ -134,36 +190,35 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 
 	return (
 		<a id={(heading as any).replaceAll(' ', '')} className='projectAnchor col centerCross'>
-			<div className={'project col center centerCross'}>
+			<div className={'project projectDesign col centerAll'}>
 				<h1 className='paragraphHeading'>{heading}</h1>
 				{elementIfParam(url, <Url url={url!}/>)}
 				{elementIfParam(github, <GithubElement src={github!}/>)}
 				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
-				<div className='bottomHalf row'>
-					{elementIfParam(tech, <TechElement tech={tech!}/>)}
-					<BulletPointsElement bulletPoints={bulletPoints}/>
-				</div>
+				<ProjectBottomHalfElement tech={tech} bulletPoints={bulletPoints}/>
 				{isWorkInProgress ? <WorkInProgressElement/> : null}
 			</div>
 		</a>
 	);
 }
 
-function DesignElement({heading, bulletPoints, slideshowElementObjs}: { 
+function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInProgress}: { 
 	heading: string, 
 	bulletPoints: JSX.Element[], 
-	slideshowElementObjs: SlideshowElementObj[]
+	slideshowElementObjs: SlideshowElementObj[],
+	isWorkInProgress: boolean
 }): JSX.Element {
 
 	return (
-		<div className={'design row center centerCrossStretch'}>
+		<div className={'design projectDesign row centerAllStretch'}>
 			<div className="leftHalf col">
 				<h1 className='paragraphHeading'>{heading}</h1>
 				<BulletPointsElement bulletPoints={bulletPoints}/>
 			</div>
-			<div className='rightHalf col center centerCross'>
+			<div className='rightHalf col centerAll'>
 				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
 			</div>
+			{isWorkInProgress ? <WorkInProgressElement/> : null}
 		</div>
 	);
 }
@@ -255,9 +310,21 @@ const projectPage: JSX.Element = <>
 </>
 
 const designPage: JSX.Element = <>
-	{Designs.map((proj) => 
+	{isMobile() ? Designs.map((proj) => 
+		<ProjectElement 
+			heading={proj.name} 
+			isWorkInProgress={proj.isWorkInProgress}
+			bulletPoints={proj.bulletPoints} 
+			slideshowElementObjs={proj.images}
+			url={undefined}
+			github={undefined}
+			tech={undefined}
+			key={JSON.stringify(proj)}
+		/>
+	) : Designs.map((proj) => 
 		<DesignElement 
 			heading={proj.name} 
+			isWorkInProgress={proj.isWorkInProgress}
 			bulletPoints={proj.bulletPoints} 
 			slideshowElementObjs={proj.images}
 			key={JSON.stringify(proj)}
@@ -336,7 +403,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 		/>);
 	}
 	return (
-		<div className={"col center centerCross fullWidth"}>
+		<div className={"col centerAll fullWidth"}>
 
 			<header className={'fullWidth col centerCross'}>
 				<div id={'themeButtonsContainer'}>

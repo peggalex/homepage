@@ -250,15 +250,14 @@ export const CompetitionProj: Project = {
 	bulletPoints: [
 		<>
 			Scotiabank <a href="https://www.utm.utoronto.ca/imi/imi-events/big-data-ai-case-competition">competition</a> identifying
-			 human traffickting/money laundering using bank data.
+			 human traffickting/money laundering using unlabled bank data.
 		</>,
 		<>
 			We <a href="https://www.utm.utoronto.ca/imi/news/results-are-2020-big-data-ai-case-competition">won</a> the 
 			first place prize of $3000.
 		</>,
-		<>They gave us real (hashed) bank data and tasked us with classifying accounts (unsupervised).</>,
-		<>Parameterised data with neo4j, used azure cloud computing to handle large data (8 million rows).</>,
-		<>Generated a normal multivariate cdf of the data using python, selecting outliers at the tails.</>,
+		<>Used azure cloud computing to handle large data (8 million rows).</>,
+		<>Generated a normal multivariate cdf of the data in python, selecting outliers at the tails.</>,
 
 	],
 	tech: [
@@ -293,7 +292,7 @@ export const Fortnite2DProj: Project = {
 		{
 			src: './ftdDemo.mp4',
 			isVideo: true,
-			caption: 'Demo using the React carousel for the website.'
+			caption: 'Demo using the React carousel for the website. It\'s a little slow with the video recorder on.'
 		}
 	],
 	bulletPoints: [
@@ -410,11 +409,11 @@ export const FindingNameoProj: Project = {
 		}
 	],
 	bulletPoints: [
-		<>App for you and your partner to rate baby names</>,
+		<>App for you and a partner to rate baby names</>,
 		<>The idea is that the highest average rated names between you two would be the best.</>,
-		<>Whenever a partner rates a name, it would send you a notification to rate that name as well.</>,
-		<>While a web app is nice as it works on many platforms, push notifications are difficult to use right now.</>,
-		<>To overcome this, I'm planning on migrating the code to React Native, which I've never used before.</>
+		<>Whenever a partner rates a name, a notification is sent to the other partner.</>,
+		<>While a web app works on most platforms, push notifications support is weird.</>,
+		<>I'm planning on migrating the code to React Native, which I've never used before.</>
 	],
 	tech: [
 		new FrontEndTechStack(
@@ -474,7 +473,7 @@ export const ByteDesign: Project = {
 	name: "Byte",
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
-	isWorkInProgress: true,
+	isWorkInProgress: false,
 	images: [
 		{
 			src: './byteBasic.png',
@@ -504,7 +503,7 @@ export const MactanGardensDesign: Project = {
 		{
 			src: './mactanGardensBasic.png',
 			isVideo: false,
-			caption: 'Mactan Gardens header. I abstracted more complicated shapes like the tiles and the foliage, and I think it turned out nicely'
+			caption: 'Mactan Gardens header I made in Illustrator. Font is Public Sans.'
 		},
 		{
 			src: './mactanGardensPage.png',
@@ -543,7 +542,7 @@ export const TheMediumDesign: Project = {
 	name: "The Medium",
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
-	isWorkInProgress: true,
+	isWorkInProgress: false,
 	images: [
 		{
 			src: './theMediumBasic.png',
@@ -613,7 +612,7 @@ export const ResumeDesign: Project = {
 	name: "Resume",
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
-	isWorkInProgress: true,
+	isWorkInProgress: false,
 	images: [
 		{
 			src: './resumeBasic.png',
@@ -638,7 +637,7 @@ export const FindingNameoDesign: Project = {
 	name: "Finding Nameo",
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
-	isWorkInProgress: true,
+	isWorkInProgress: false,
 	images: [
 		{
 			src: './findingNameoDesignBasic.png',
@@ -678,7 +677,7 @@ export const ResumeDesignDesign: Project = {
 	name: "Resume Design",
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
-	isWorkInProgress: true,
+	isWorkInProgress: false,
 	images: [
 		{
 			src: './resumeDesignBasic.png',
@@ -697,7 +696,7 @@ export const ResumeDesignDesign: Project = {
 		}
 	],
 	bulletPoints: [
-		<>I had an idea to make my resume stand out by styling it like an IDE. Hosted <a href="https://peggalx.github.io/resume">here</a></>,
+		<>I had an idea to make my resume stand out by styling it like an IDE. Hosted <a href="https://peggalex.github.io/resume">here</a></>,
 		<>The end result is a bit tacky, but it was fun to do and I think it looks pretty unique.</>,
 		<>Another constraint I put is that all the design would be done with css, and the resume itself would be normal html markup</>,
 		<>To change the colour of keywords like 'for' and 'in', I had to use javascript however</>,

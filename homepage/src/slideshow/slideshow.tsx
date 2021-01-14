@@ -11,20 +11,21 @@ export interface SlideshowElementObj{
     readonly caption: string;
 }
 
-function SlideshowPreview({slideshowElementObj: {src, isVideo}, clickHandler} : {
+function SlideshowPreview({slideshowElementObj: {src, isVideo}, clickHandler, isLeft} : {
             slideshowElementObj: SlideshowElementObj, 
-            clickHandler: ()=>any
+            clickHandler: ()=>any,
+            isLeft: boolean
         }){
 
     return (
         <div 
-            className={'slideshowElement slideshowPreview clickable col center centerCross spacer'} 
+            className={`slideshowElement slideshowPreview clickable row centerAll spacer ${isLeft ? "left" : "right"}Preview`} 
             onClick={clickHandler}
         >
             {isVideo ? 
                 <video key={src}>
-                    {/*source src={`${src}#t=0.1`} type="video/mp4"/>*/}
-                    <source src={src} type="video/mp4"/>
+                    <source src={`${src}#t=0.1`} type="video/mp4"/>
+                    {/*<source src={src} type="video/mp4"/>*/}
                 </video> : <img src={src}/>}
             {/*
                 https://stackoverflow.com/questions/7323053/dynamically-using-the-first-frame-as-poster-in-html5-video
@@ -43,7 +44,7 @@ function SlideshowDisplayImg({src, clickHandler} : {
 
 return (
     <div 
-        className={'slideshowElement slideshowDisplay col center'} 
+        className={'slideshowElement slideshowDisplay row center'} 
         onClick={clickHandler}
     >
         <img src={src}/>
@@ -57,7 +58,7 @@ function SlideshowDisplayVideo({src} : {
 
     return (
         <div 
-            className={'slideshowElement slideshowDisplay col center'} 
+            className={'slideshowElement slideshowDisplay row centerAll'} 
         >
             <video controls key={src}>
                 <source src={src} type="video/mp4"/>
@@ -91,7 +92,7 @@ function shiftIndexRight(index: number, length: number, shift:number = 1):number
 function addFullscreenImg(src: string): void{
 
     let fullscreenContainer = $(`
-        <div id='fullscreenContainer' class='center centerCross'>
+        <div id='fullscreenContainer' class='centerAll'>
             <img id='fullscreenImg' src="${src}"/>
         </div>
     `);
@@ -153,7 +154,7 @@ export function Slideshow({slideshowElementObjs}:
                 />
             ))}
         </div>
-        <div className='slideshow row center centerCross'>
+        <div className='slideshow row centerAll'>
             <div className='clickable' onClick={()=>setIndex(shiftIndexLeft(index, length))}>
                 {Icons.ChevronLeft}
             </div>
@@ -163,6 +164,7 @@ export function Slideshow({slideshowElementObjs}:
                     clickHandler={()=>{
                         setIndex(shiftIndexLeft(index, length));
                     }}
+                    isLeft={true}
                 />
             </>}
             <SlideshowDisplay
@@ -179,6 +181,7 @@ export function Slideshow({slideshowElementObjs}:
                     clickHandler={()=>{
                         setIndex(shiftIndexRight(index, length));
                     }}
+                    isLeft={false}
                 />
             </>}
             <div className='clickable' onClick={()=>setIndex(shiftIndexRight(index, length))}>

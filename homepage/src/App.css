@@ -60,6 +60,12 @@ html {
   align-items: center;
 }
 
+.centerAll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .centerCrossStetch {
   display: flex;
   align-items: stretch;
@@ -133,13 +139,51 @@ button {
   margin-top: 1.5rem;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0.5rem 1.5rem 0 1.5rem;
   border-radius: 0 0 1rem 1rem;
   background-color: var(--grey100);
 }
 
-.bottomHalf > * {
+.bottomHalf .bottomHalfContent {
+  padding: 0.5rem 1.5rem 0 1.5rem;
+}
+
+.bottomHalf .bottomHalfContent > * {
   flex: 1 1 0px;
+}
+
+.bottomHalfButtons{
+  background-color: var(--grey300);
+}
+
+.bottomHalfButtons > button {
+  width: 100%;
+  border: none;
+  font-variation-settings: 'wght' 400;
+  padding: 0.25rem 0;
+}
+
+.bottomHalfButtons * {
+  transition: none;
+}
+
+.bottomHalfButtons button svg {
+  width: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.bottomHalfButtons > .notSelected {
+  background-color: var(--grey200);
+}
+
+.bottomHalfButtons > .selected {
+  color: var(--buttonSelectedColour);
+  background-color: transparent;
+  border-bottom: solid thick var(--buttonSelectedColour);
+  filter: brightness(0.9);
+}
+
+.bottomHalfContent .techStack {
+  margin-left: 0;
 }
 
 .paragraph{
@@ -331,18 +375,18 @@ button {
   margin-right: 0.25rem;
 }
 
-.project .ribbonTop, .project .ribbonBottom {
+.projectDesign .ribbonTop, .projectDesign .ribbonBottom {
   position: absolute;
   color: var(--buttonSelectedColour);
 }
 
-.project .ribbonTop {
+.projectDesign .ribbonTop {
   width: 10rem;
   top: -0.5rem;
   right: -0.5rem;
 }
 
-.project .ribbonBottom {
+.projectDesign .ribbonBottom {
   width: 6.7rem;
   top: -0.48rem;
   right: -0.48rem;
@@ -385,6 +429,7 @@ button {
   margin-bottom: 1.5rem;
   width: min(90%, 800px);
   box-shadow: 0 0 0.5rem -0.2rem #000;
+  position: relative;
 }
 
 .design .slideshowPreview img, .design .slideshowPreview video{
