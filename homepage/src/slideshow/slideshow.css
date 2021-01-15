@@ -93,6 +93,7 @@
     margin: 0.3rem;
     border-radius: 1rem;
     border: none;
+    padding: 0;
   }
   
   .slideshowNode:not(.selected){
