@@ -642,7 +642,7 @@ export const FindingNameoDesign: Project = {
 		{
 			src: './findingNameoDesignBasic.png',
 			isVideo: false,
-			caption: 'Design for front page. The color scheme is indigo/blue. The graphic is mine, and the font isSan Francisco, Segoe UI on windows.'
+			caption: 'Design for front page. The color scheme is indigo/blue. The graphic is mine, and the font is San Francisco, Segoe UI on windows.'
 		},
 		{
 			src: './findingNameoDesignHome.png',
@@ -713,7 +713,7 @@ export const HomepageDesign: Project = {
 		{
 			src: './homepageBasic.png',
 			isVideo: false,
-			caption: 'This is the basic layout of the front page. Corners are rounded, and everything is styled in tiles. Font is San Francisco on mac, Segoe UI on windows.'
+			caption: 'This is the basic layout of the front page. Corners are rounded, and everything is styled in tiles. Font is San Francisco, icons by Feather icons.'
 		},
 		{
 			src: './homepageOld.png',
