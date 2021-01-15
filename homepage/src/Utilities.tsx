@@ -48,6 +48,8 @@ export function messageStrToJSON(messageStr: string){
 
 export const noTabs = (str: string): string => str.replace(/\t/g, '');
 
+export const noTabNewline = (str: string): string => noTabs(str).replace(/\n/g, ' ');
+
 export const hasAttributes = (obj: Object, attrs: string[]): boolean => {
     return attrs.every((a) => (obj as {[key: string]: any})[a] != undefined);
 }

@@ -18,7 +18,7 @@ import $ from 'jquery';
 import Icons from './icons';
 import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
-import { noTabs, elementIfParam, isMobile } from './Utilities';
+import { noTabNewline, elementIfParam, isMobile } from './Utilities';
 
 function TabButton({ name, selectedTab, selectTab }: { 
 			name: string, 
@@ -45,9 +45,13 @@ function SelectableTab({ name, selectedTab, content }: {
 	return (name == selectedTab) ? <div id={`${name}Tab`} className="col centerCross">{content}</div> : null;
 }
 
-function Url({url}: {url: string}): JSX.Element{
+function UrlElement({url}: {url: string}): JSX.Element{
     return (
-		<a className='url row centerCross' href={url} target="_blank">{Icons.Link}{url}{Icons.Search}</a>
+		<a className='url row centerCross' href={url} target="_blank">
+			{Icons.Link}
+			<span>{url}</span>
+			{Icons.Search}
+		</a>
 	)
 }
 
@@ -192,7 +196,7 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 		<a id={(heading as any).replaceAll(' ', '')} className='projectAnchor col centerCross'>
 			<div className={'project projectDesign col centerAll'}>
 				<h1 className='paragraphHeading'>{heading}</h1>
-				{elementIfParam(url, <Url url={url!}/>)}
+				{elementIfParam(url, <UrlElement url={url!}/>)}
 				{elementIfParam(github, <GithubElement src={github!}/>)}
 				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
 				<ProjectBottomHalfElement tech={tech} bulletPoints={bulletPoints}/>
@@ -230,7 +234,7 @@ function parseParagraph(str: string): JSX.Element {
 	const linkRegex = /<a href=["'][^<]*["']>[^<]*<\/a>/g;
 	const linkRegexCapture = /<a href=["']([^<]*)["']>([^<]*)<\/a>/g;
 
-	str = noTabs(str);
+	str = noTabNewline(str);
 
 	let jsxList: (JSX.Element | string)[] = [];
 	let withoutLinks: string[] = str.split(linkRegex);
@@ -251,47 +255,40 @@ function parseParagraph(str: string): JSX.Element {
 }
 
 const aboutPage: JSX.Element = <>
-	<Paragraph heading={null} content={<p>
-		Hi, my name's Alex Pegg. I am a 4th year computer scientist from the University of Toronto.
-    </p>}
+	<Paragraph heading={null} content={<div className="col centerAll">
+			<img id="myFace" src="me.png"></img>
+			<p style={{textAlign: 'center'}}>
+				Hi, my name is Alex Pegg. Welcome to my website! 
+				Here I have projects and designs I've done that I am especially proud of.
+				Feel free to look around, and have a nice day!
+			</p>
+		</div>}
 	/>
 	<Paragraph heading={"Background"} content={<p>
-		I was born and raised in Hong Kong. I'm half British and half Filipino.
-    </p>}
+		I'm half British and half Filipino. 
+		I was born and raised in Hong Kong, 
+		and have been living in Canada ever since moving here for university.
+	</p>}
 	/>
-	<Paragraph heading={"School"} content={parseParagraph(
-		`I've completed my major in both computer science and economics for an honours bachelors of science.
-        I've been a tutorial and marking TA for CSC108.`
-	)}
+	<Paragraph heading={"School"} content={<p>
+		I've completed an honours bachelors of science, 
+		majoring in Computer Science and Economics.
+        I've been a tutorial and marking TA for CSC108, which I thoughly enjoyed.
+	</p>}
 	/>
-	<Paragraph heading={'Me right now'} content={parseParagraph(
-		`I'm into AI and full stack dev, trying to get a job.
-
-        I'm currently interested making nodejs apps with a react frontend, \
-        making the transition into the newer React hooks.
-
-        I recently bought a raspberry pi, so hopefully I can get a static ip and \
-        host my website there for non-static web apps.\
-        I just bought a domain <a href='https://alexpegg.com'>https://alexpegg.com</a> \
-        for a dollar for a year (15 dollars a year after the first),\
-        and a dollar a month for a small server from \
-        <a href='https://ionos.ca' target='_blank'>Ionos</a>. \
-        Got reverse proxy working with nginx and some nodejs apps like \
-        <a href='https://alexpegg.com/whisper'>this</a> and 
-        <a href='https://alexpegg.com/ftd' target='_blank'>this</a>. \
-        I plan on migrating that stuff to the raspberry pi as soon as I figure it out.
-
-        I want to get some Wordpress experience, and my mum wants a website for \
-        her little side business so hopefully I can use that as an opportunity to learn. \
-        Those CMS sites like Wordpress and Squarespace make web design look really easy, \
-        I could learn a thing or two. \ 
-
-        I also like making animated SVGs in illustrator with css/js, cycling and playing \
-        <a href="https://na.op.gg/summoner/userName=snaIex">league</a> with friends.
-
-        Go to the projects tab on the left to see some of the stuff I've made so far.`
-	)}
+	<Paragraph heading={"Hobbies"} content={<p>
+		I like biking, working on programming projects, watching TV and playing games with my friends.
+		My favourite project so far would be FindingNameo, and my favourite TV shows are The Office, Community and The Mandolorian. 
+	</p>}
 	/>
+
+	<Paragraph heading={"Resume"} content={<div className="col centerAll">
+		<img id="myResume" src="resumeBasic.png"></img>
+		<p style={{textAlign: 'center'}}>
+			This is my resume, a parsable pdf version is available <a href="alexpeggresume2021.pdf" target="_blank">here</a>. 
+			It has my contact information at the top if you would like to get in touch.
+		</p>
+	</div>} />
 </>
 
 const projectPage: JSX.Element = <>
@@ -338,22 +335,16 @@ const contactPage: JSX.Element = <>
 	</p>} />
 
 	<Paragraph heading={"LinkedIn"} content={<p>
-		<a href='https://www.linkedin.com/in/alexander-pegg-68b954163/' target="_blank">
-			Alexander Pegg -- LinkedIn
+		<a href='https://www.linkedin.com/in/alexvilapegg/' target="_blank">
+			AlexVilaPegg
     </a>
 	</p>} />
 
 	<Paragraph heading={"GitHub"} content={<p>
 		<a href='https://github.com/peggalex' target="_blank">
-			peggalex -- github
+			peggalex
     </a>
 	</p>} />
-
-	<Paragraph heading={"Latex Resume"} content={<>
-		<p><a href='https://www.overleaf.com/read/kttybhdbwppk' target="_blank">LaTeX resume (professional)</a></p>
-		<p><a href='https://peggalex.github.io/Alex_Pegg_Resume.pdf' target="_blank">LaTeX resume (professional, compiled)</a></p>
-		<p><a href="https://peggalex.github.io/resume3.html" target="_blank">html resume (stylized)</a></p>
-	</>} />
 </>
 
 const themes: Theme[] = [
@@ -382,7 +373,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 		'about': aboutPage,
 		'projects': projectPage,
 		'designs': designPage,
-		'contact': contactPage,
+		//'contact': contactPage,
 	};
 
 	let tabs: JSX.Element[] = [];
