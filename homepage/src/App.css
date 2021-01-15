@@ -137,6 +137,10 @@ button {
   margin-bottom: 1rem;
 }
 
+#projectsTab > *:last-child{
+  margin-bottom: 1.5rem;
+}
+
 .project, .paragraph{
   transition: transform 1s;
 }
