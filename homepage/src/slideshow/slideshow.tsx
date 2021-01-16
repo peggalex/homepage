@@ -1,8 +1,8 @@
-import React, { SetStateAction } from 'react';
-import { isMobile } from '../Utilities';
+import React, { SetStateAction, useContext } from 'react';
 import './slideshow.css';
 import $ from 'jquery';
 import Icons from "../icons"
+import { MobileContext } from '../Utilities';
 
 
 export interface SlideshowElementObj{
@@ -140,8 +140,9 @@ export function Slideshow({slideshowElementObjs}:
         ){
     
     let length = slideshowElementObjs.length;
-        
     let [index, setIndex] = React.useState(0);
+
+    const isMobileState = useContext(MobileContext);
 
     return (<>
         <div className='slideshowNodes'>
@@ -158,7 +159,7 @@ export function Slideshow({slideshowElementObjs}:
             <div className='clickable' onClick={()=>setIndex(shiftIndexLeft(index, length))}>
                 {Icons.ChevronLeft}
             </div>
-            {isMobile() ? null : <>
+            {isMobileState ? null : <>
                 <SlideshowPreview
                     slideshowElementObj={slideshowElementObjs[shiftIndexLeft(index, length)]}
                     clickHandler={()=>{
@@ -175,7 +176,7 @@ export function Slideshow({slideshowElementObjs}:
                     addFullscreenImg(src);
                 }}
             />
-            {isMobile() ? null : <>
+            {isMobileState ? null : <>
                 <SlideshowPreview
                     slideshowElementObj={slideshowElementObjs[shiftIndexRight(index, length)]}
                     clickHandler={()=>{

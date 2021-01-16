@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { createContext } from 'react';
 
 export var isMobile = () => window.matchMedia("(orientation: portrait)").matches;
 
@@ -50,9 +51,11 @@ export const noTabs = (str: string): string => str.replace(/\t/g, '');
 
 export const noTabNewline = (str: string): string => noTabs(str).replace(/\n/g, ' ');
 
-export const hasAttributes = (obj: Object, attrs: string[]): boolean => {
-    return attrs.every((a) => (obj as {[key: string]: any})[a] != undefined);
-}
+export const hasAttributes = (obj: Object, attrs: string[]): boolean => 
+    attrs.every((a) => (obj as {[key: string]: any})[a] != undefined);
 
 export const elementIfParam = (param: any, element: JSX.Element) => (param === undefined) ? null : element;
 
+export const getScreenSize: (() => string) = () => `${window.innerWidth},${window.innerHeight}`;
+
+export const MobileContext = createContext(isMobile());

@@ -31,8 +31,7 @@
 
   .design .slideshowDisplay img, .design .slideshowDisplay video {
     max-width: 100%;
-    max-height: 300px;
-    object-fit: contain;
+    max-height: min(50vh, 600px);
   }
   
   .slideshowDisplay figcaption{
@@ -110,16 +109,8 @@
 
   .slideshow .chevronLeft, .slideshow .chevronRight {
     height: 4rem;
-    margin: 0;
+    margin: 0 0.75rem;
     color: var(--buttonSelectedColour);
-  }
-
-  .slideshow .chevronLeft{
-    margin-left: 0.75rem;
-  }
-
-  .slideshow .chevronRight{
-    margin-right: 0.75rem;
   }
 
   .slideshowCaption {

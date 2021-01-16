@@ -226,11 +226,13 @@ button {
   z-index:100;
 }
 */
-
+/*
 .paragraph:hover{
   transform: scale(1.03);
   z-index: var(--zIndexParagraphHover);
 }
+*/
+/* I think this causes major lag, especially for safari */
 
 .project > img{
   width: 100%;

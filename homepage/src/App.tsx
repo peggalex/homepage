@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import './App.css';
 import './tailwindColours.css'
 
@@ -18,7 +18,7 @@ import $ from 'jquery';
 import Icons from './icons';
 import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
-import { noTabNewline, elementIfParam, isMobile } from './Utilities';
+import { noTabNewline, elementIfParam, isMobile, MobileContext } from './Utilities';
 
 function TabButton({ name, selectedTab, selectTab }: { 
 			name: string, 
@@ -136,10 +136,11 @@ function ProjectBottomHalfMobileElement({techElement, bulletPointsElement}: {
 
 	return 	<>
 		<div className="bottomHalfButtons row">
-			{tabs.map(tab => (
+			{tabs.map((tab, i) => (
 				<button 
 					className={(selectedTab.name == tab.name ? "selected" : "notSelected") + " row centerAll"} 
 					onClick={() => selectTab(tab)}
+					key={i}
 				>
 					{tab.icon}
 					{tab.name}
@@ -159,16 +160,19 @@ function ProjectBottomHalfElement({tech, bulletPoints}: {
 	
 	let techElement = elementIfParam(tech, <TechElement tech={tech!}/>);
 	let bulletPointsElement = <BulletPointsElement bulletPoints={bulletPoints}/>;
+
+	const isMobileState = useContext(MobileContext);
+
 	return <div className='bottomHalf'>
 		{
-		!isMobile() || techElement == null ? <div className="bottomHalfContent row">
-				{techElement}
-				{bulletPointsElement}
-			</div> : <ProjectBottomHalfMobileElement
-				techElement={techElement!}
-				bulletPointsElement={bulletPointsElement}
-			/>
-	}
+			!isMobileState || techElement == null ? <div className="bottomHalfContent row">
+					{techElement}
+					{bulletPointsElement}
+				</div> : <ProjectBottomHalfMobileElement
+					techElement={techElement!}
+					bulletPointsElement={bulletPointsElement}
+				/>
+		}
 	</div>
 }
 
@@ -193,27 +197,35 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 		}): JSX.Element {
 
 	return (
-		<a id={(heading as any).replaceAll(' ', '')} className='projectAnchor col centerCross'>
-			<div className={'project projectDesign col centerAll'}>
-				<h1 className='paragraphHeading'>{heading}</h1>
-				{elementIfParam(url, <UrlElement url={url!}/>)}
-				{elementIfParam(github, <GithubElement src={github!}/>)}
-				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
-				<ProjectBottomHalfElement tech={tech} bulletPoints={bulletPoints}/>
-				{isWorkInProgress ? <WorkInProgressElement/> : null}
-			</div>
-		</a>
+		<div className={'project projectDesign col centerAll'}>
+			<h1 className='paragraphHeading'>{heading}</h1>
+			{elementIfParam(url, <UrlElement url={url!}/>)}
+			{elementIfParam(github, <GithubElement src={github!}/>)}
+			<Slideshow slideshowElementObjs={slideshowElementObjs} />
+			<ProjectBottomHalfElement tech={tech} bulletPoints={bulletPoints}/>
+			{isWorkInProgress ? <WorkInProgressElement/> : null}
+		</div>
 	);
 }
 
 function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInProgress}: { 
-	heading: string, 
-	bulletPoints: JSX.Element[], 
-	slideshowElementObjs: SlideshowElementObj[],
-	isWorkInProgress: boolean
-}): JSX.Element {
+			heading: string, 
+			bulletPoints: JSX.Element[], 
+			slideshowElementObjs: SlideshowElementObj[],
+			isWorkInProgress: boolean
+		}): JSX.Element {
 
-	return (
+	const isMobileState = useContext(MobileContext);
+
+	return isMobileState ? <ProjectElement 
+		heading={heading} 
+		isWorkInProgress={isWorkInProgress}
+		bulletPoints={bulletPoints} 
+		slideshowElementObjs={slideshowElementObjs}
+		url={undefined}
+		github={undefined}
+		tech={undefined}
+	/> : (
 		<div className={'design projectDesign row centerAllStretch'}>
 			<div className="leftHalf col">
 				<h1 className='paragraphHeading'>{heading}</h1>
@@ -307,18 +319,7 @@ const projectPage: JSX.Element = <>
 </>
 
 const designPage: JSX.Element = <>
-	{isMobile() ? Designs.map((proj) => 
-		<ProjectElement 
-			heading={proj.name} 
-			isWorkInProgress={proj.isWorkInProgress}
-			bulletPoints={proj.bulletPoints} 
-			slideshowElementObjs={proj.images}
-			url={undefined}
-			github={undefined}
-			tech={undefined}
-			key={JSON.stringify(proj)}
-		/>
-	) : Designs.map((proj) => 
+	{Designs.map((proj) => 
 		<DesignElement 
 			heading={proj.name} 
 			isWorkInProgress={proj.isWorkInProgress}
@@ -393,7 +394,16 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 			key={pageName + 'button'}
 		/>);
 	}
-	return (
+
+	const [isMobileState, setIsMobile] = React.useState(isMobile());
+
+	useEffect(() => {
+		var resizeObserver = new ResizeObserver(_ => setIsMobile(isMobile));
+		resizeObserver.observe(document.body);
+		return () => resizeObserver.disconnect();
+	})
+
+	return <MobileContext.Provider value={isMobileState}>
 		<div className={"col centerAll fullWidth"}>
 
 			<header className={'fullWidth col centerCross'}>
@@ -419,7 +429,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 
 			<footer></footer>
 		</div>
-	);
+	</MobileContext.Provider>
 }
 
 export default App;
