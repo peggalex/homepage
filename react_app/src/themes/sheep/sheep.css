@@ -110,4 +110,5 @@
 #alexSheep, #repositorySheep {
     font-family: 'Quicksand','sans-serif'; 
     font-weight:300;
+    font-variation-settings: "wght" 300;
 }
