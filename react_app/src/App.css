@@ -113,6 +113,7 @@ button {
   border-radius: 0.5rem;
   margin: 0.5rem 0.25rem;
   border: solid thin white;
+  font-variation-settings: 'wght' 400;
 }
 
 #tabButtons > button:hover, #tabButtons > button.selected{
