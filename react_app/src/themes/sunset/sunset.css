@@ -2,6 +2,7 @@
     text-transform: uppercase;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-weight: 300;
+    font-variation-settings: "wght" 300;
     letter-spacing: 5px;
     font-size: 20px;
     transform: translate(120px, 150px);
