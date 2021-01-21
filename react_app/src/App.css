@@ -23,10 +23,10 @@ body {
 }
 
 body, body * {
-  font-family: "quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
   /*font-family: 'Zilla Slab', serif;*/
-  font-variation-settings: 'wght' 500;
+  font-variation-settings: 'wght' 400;
   transition: color 1s, fill 1s, opacity 1s;
 }
 
@@ -34,6 +34,8 @@ h1 {
   /*font-family: 'Noto Serif KR', serif;*/
   /*font-family: 'Zilla Slab', serif;*/
   font-size: 1.75rem;
+  font-family: "quicksand";
+  font-variation-settings: 'wght' 450;
 }
 
 html {
@@ -260,7 +262,6 @@ button {
   /*color: royalblue;*/
   color: var(--headingColour);
   /*color: var(--backgroundColour);*/
-  font-variation-settings: 'wght' 400;
 }
 
 /*.project h1 {
@@ -297,7 +298,7 @@ button {
   margin: 0 0rem 1.35rem 0;
   line-height: 1.5;
   color: var(--gray800);
-  font-variation-settings: 'wght' 500;
+  font-variation-settings: 'wght' 400;
 }
 
 /*
@@ -315,13 +316,10 @@ button {
   border-radius: 1.5rem;
   background-color: var(--gray200);
   color: var(--gray800);
-  font-size: 13px;
-  font-variation-settings: 'wght' 300;
   text-decoration: none;
+  font-size: 13px;
   overflow: hidden;
   margin-left: 0.15rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   /*box-shadow: inset 0 0 0.2rem 0.01rem var(--grey400);*/
 }
 
@@ -329,6 +327,7 @@ button {
   flex-grow: 1;
   text-align: start;
   overflow: hidden;
+  font-variation-settings: 'wght' 400;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -352,7 +351,7 @@ button {
 }
 
 .techStackTitle > p {
-  font-variation-settings: 'wght' 700;
+  font-variation-settings: 'wght' 600;
   color: var(--grey900);
   font-size: 13px;
   width: 4.1rem;
@@ -375,6 +374,10 @@ button {
 .superTechTypeName > p{
   font-weight: 600;
   font-variation-settings: 'wght' 600;
+}
+
+.subType p {
+  font-variation-settings: 'wght' 300;
 }
 
 .superTechType svg, .superTechType img {
@@ -433,7 +436,7 @@ button {
 
 .workInProgress p {
   color: white;
-  font-variation-settings: 'wght' 600;
+  font-variation-settings: 'wght' 650;
 }
 
 .githubContainer {
