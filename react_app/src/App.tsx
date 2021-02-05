@@ -398,9 +398,11 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 	const [isMobileState, setIsMobile] = React.useState(isMobile());
 
 	useEffect(() => {
-		var resizeObserver = new ResizeObserver(_ => setIsMobile(isMobile));
-		resizeObserver.observe(document.body);
-		return () => resizeObserver.disconnect();
+		if (typeof ResizeObserver !== 'undefined') {
+			var resizeObserver = new ResizeObserver(_ => setIsMobile(isMobile));
+			resizeObserver.observe(document.body);
+			return () => resizeObserver.disconnect();
+		}
 	})
 
 	return <MobileContext.Provider value={isMobileState}>
