@@ -9,12 +9,10 @@ import { BlossomTheme } from './themes/blossom/blossom';
 import { SunsetTheme } from './themes/sunset/sunset';
 import { CaliTheme } from './themes/cali/cali';
 
-
 import { Theme, ThemeButton } from './themes/themes';
 import { Slideshow, SlideshowElementObj } from './slideshow/slideshow';
 import './exampleCobb.png';
 import './micrographerDemo1.gif';
-import $ from 'jquery';
 import Icons from './icons';
 import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
@@ -398,9 +396,11 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 	const [isMobileState, setIsMobile] = React.useState(isMobile());
 
 	useEffect(() => {
-		var resizeObserver = new ResizeObserver(_ => setIsMobile(isMobile));
-		resizeObserver.observe(document.body);
-		return () => resizeObserver.disconnect();
+		if (typeof ResizeObserver !== 'undefined') {
+			var resizeObserver = new ResizeObserver(_ => setIsMobile(isMobile));
+			resizeObserver.observe(document.body);
+			return () => resizeObserver.disconnect();
+		}
 	})
 
 	return <MobileContext.Provider value={isMobileState}>
