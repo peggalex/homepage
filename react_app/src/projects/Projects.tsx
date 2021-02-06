@@ -207,6 +207,16 @@ export const CompetitionProj: Project = {
 	isWorkInProgress: false,
 	images: [
 		{
+			src: './accountFindings.png',
+			isVideo: false,
+			caption: '4 most suspicious accounts and their relationships.'
+		},
+		{
+			src: './accountFindingsLocations.png',
+			isVideo: false,
+			caption: '4 most suspicious accounts and their locations. Notice repeat activity on the Canadian-US border. If you go to the powerpoint link, you can see the full findings including emails and specific relationships.'
+		},
+		{
 			src: './accountEmailParameters.png',
 			isVideo: false,
 			caption: 'Parameters used for account and email classification.'
@@ -219,7 +229,7 @@ export const CompetitionProj: Project = {
 		{
 			src: './communityAlgorithm.png',
 			isVideo: false,
-			caption: 'Different community detection algorithms. The simple UnionFind algorithm just detects if there exists some link (no matter how long) between accounts, like if there exists a chain of friends on facebook between you and a person. The Louvian algorithm identifies highly connected clusters using weighted edges, like if there exists a chain of facebook friends who talk with each other constantly between you and a person.'
+			caption: 'Different community detection algorithms. The simple UnionFind algorithm just detects if there exists some link (no matter how long) between accounts, like if there exists a chain of friends on facebook between you and a person. The Louvian algorithm identifies highly connected clusters using weighted edges, like if there exists a chain of facebook friends who talk with each other constantly.'
 		},
 		{
 			src: './parameterDistribution.png',
@@ -234,17 +244,7 @@ export const CompetitionProj: Project = {
 		{
 			src: './technologyCompetition.png',
 			isVideo: false,
-			caption: 'A fundamental assumption of the model was that the data is normally distributed. In reality, the variables had many different distributions. However, with our large dataset, they are all tightly centered about their mean.'
-		},
-		{
-			src: './accountFindings.png',
-			isVideo: false,
-			caption: '4 most suspicious accounts and their relationships.'
-		},
-		{
-			src: './accountFindingsLocations.png',
-			isVideo: false,
-			caption: '4 most suspicious accounts and their locations. Notice repeat activity on the Canadian-US border.'
+			caption: 'These are the libraries I used in python.'
 		}
 	],
 	bulletPoints: [
@@ -287,12 +287,12 @@ export const Fortnite2DProj: Project = {
 		{
 			src: './ftdBasic.png',
 			isVideo: false,
-			caption: 'Homepage for the site.'
+			caption: 'UI for the game, painted using the html canvas.'
 		},
 		{
 			src: './ftdDemo.mp4',
 			isVideo: true,
-			caption: 'Demo using the React carousel for the website. It\'s a little slow with the video recorder on.'
+			caption: 'Demo of playing the game. It\'s a little slow with the video recorder on.'
 		}
 	],
 	bulletPoints: [
