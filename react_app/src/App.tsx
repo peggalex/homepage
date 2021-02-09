@@ -297,7 +297,7 @@ const aboutPage: JSX.Element = <>
 	<Paragraph heading={"Resume"} content={<div className="col centerAll">
 		<img id="myResume" src="resumeBasic.png"></img>
 		<p style={{textAlign: 'center'}}>
-			This is my resume, a parsable pdf version is available <a href="alexpeggresume2021.pdf" target="_blank">here</a>. 
+			This is my resume, a parsable pdf version is available <a href="alexPeggResume2021.pdf" target="_blank">here</a>. 
 			It has my contact information at the top if you would like to get in touch.
 		</p>
 	</div>} />
