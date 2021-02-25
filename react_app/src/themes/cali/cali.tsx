@@ -32,11 +32,11 @@ function Cali(): JSX.Element {
 	</g>
    <g id="scrollables">
 		<g id='scrollable1'>
-			<image overflow="visible" enableBackground="new    " width="4179" height="975" href="caliBackgroundRaster.png"  transform="matrix(0.2402 0 0 0.2396 -1.2231 1.1123)"></image>
+			<image overflow="visible" enableBackground="new    " width="4179" height="975" href="/caliBackgroundRaster.png"  transform="matrix(0.2402 0 0 0.2396 -1.2231 1.1123)"></image>
 		</g>
 	
 		<g id='scrollable2'>
-			<image overflow="visible" enableBackground="new    " width="4179" height="975" href="caliBackgroundRaster.png"  transform="matrix(0.2402 0 0 0.2396 999 1.1123)"></image>
+			<image overflow="visible" enableBackground="new    " width="4179" height="975" href="/caliBackgroundRaster.png"  transform="matrix(0.2402 0 0 0.2396 999 1.1123)"></image>
 		</g>
    </g>
    <g>

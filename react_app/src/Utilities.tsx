@@ -3,6 +3,9 @@ import { createContext } from 'react';
 
 export var isMobile = () => window.matchMedia("(orientation: portrait)").matches;
 
+const loadGithub = true;
+export const mediaUrlPrefix = loadGithub ? 'https://peggalex.github.io/media/' : 'https://alexpegg.com/homepage/';
+
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 export type Ref<T> = React.MutableRefObject<T>;
 export type Dispatch<T> = React.Dispatch<T>;

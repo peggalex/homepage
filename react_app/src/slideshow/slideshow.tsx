@@ -4,6 +4,8 @@ import $ from 'jquery';
 import Icons from "../icons"
 import { MobileContext } from '../Utilities';
 
+const loadGithub = true;
+const urlPrefix = loadGithub ? 'https://peggalex.github.io/media/' : 'https://alexpegg.com/homepage/';
 
 export interface SlideshowElementObj{
     readonly src: string;
@@ -24,9 +26,9 @@ function SlideshowPreview({slideshowElementObj: {src, isVideo}, clickHandler, is
         >
             {isVideo ? 
                 <video key={src}>
-                    <source src={`${src}#t=0.1`} type="video/mp4"/>
+                    <source src={`${urlPrefix}${src}#t=0.1`} type="video/mp4"/>
                     {/*<source src={src} type="video/mp4"/>*/}
-                </video> : <img src={src}/>}
+                </video> : <img src={`${urlPrefix}${src}`}/>}
             {/*
                 https://stackoverflow.com/questions/7323053/dynamically-using-the-first-frame-as-poster-in-html5-video
                 
@@ -47,7 +49,7 @@ return (
         className={'slideshowElement slideshowDisplay row center'} 
         onClick={clickHandler}
     >
-        <img src={src}/>
+        <img src={`${urlPrefix}${src}`}/>
     </div>
 );
 }
@@ -61,7 +63,7 @@ function SlideshowDisplayVideo({src} : {
             className={'slideshowElement slideshowDisplay row centerAll'} 
         >
             <video controls key={src}>
-                <source src={src} type="video/mp4"/>
+                <source src={`${urlPrefix}${src}`} type="video/mp4"/>
             </video>
         </div>
     );

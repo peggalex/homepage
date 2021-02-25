@@ -18,31 +18,26 @@ import $ from 'jquery';
 import Icons from './icons';
 import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
-import { noTabNewline, elementIfParam, isMobile, MobileContext } from './Utilities';
+import { noTabNewline, elementIfParam, isMobile, MobileContext, mediaUrlPrefix } from './Utilities';
+import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
 
-function TabButton({ name, selectedTab, selectTab }: { 
-			name: string, 
-			selectedTab: string, 
-			selectTab: (str: string) => void 
+function TabButton({ name }: { 
+			name: string
 		}): JSX.Element {
+
+	const location = useLocation();
+	let path = `/homepage/${name}`;
+	let isSelected = location.pathname == path || (name == 'about' && location.pathname == '/');
 	return (
-		<button
-			id={name + 'TabButton'}
-			onClick={() => selectTab(name)}
-			className={(name == selectedTab) ? 'selected' : ''}
-		>
-			{name}
-		</button>
+		<Link to={path}>
+			<button
+				id={name + 'TabButton'}
+				className={isSelected ? 'selected' : ''}
+			>
+				{name}
+			</button>
+		</Link>
 	);
-}
-
-function SelectableTab({ name, selectedTab, content }: { 
-			name: string, 
-			selectedTab: string, 
-			content: JSX.Element 
-		}): JSX.Element | null {
-
-	return (name == selectedTab) ? <div id={`${name}Tab`} className="col centerCross">{content}</div> : null;
 }
 
 function UrlElement({url}: {url: string}): JSX.Element{
@@ -198,6 +193,7 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 
 	return (
 		<div className={'project projectDesign col centerAll'}>
+			<a id={heading.replace(' ', '')} className='projectAnchor'></a>
 			<h1 className='paragraphHeading'>{heading}</h1>
 			{elementIfParam(url, <UrlElement url={url!}/>)}
 			{elementIfParam(github, <GithubElement src={github!}/>)}
@@ -266,9 +262,9 @@ function parseParagraph(str: string): JSX.Element {
 	return <p>{jsxList}</p>;
 }
 
-const aboutPage: JSX.Element = <>
+const aboutPage = () => <>
 	<Paragraph heading={null} content={<div className="col centerAll">
-			<img id="myFace" src="me.png"></img>
+			<img id="myFace" src={`${mediaUrlPrefix}me.png`}></img>
 			<p style={{textAlign: 'center'}}>
 				Hi, my name is Alex Pegg. Welcome to my website! 
 				Here I have projects and designs I've done that I am especially proud of.
@@ -295,15 +291,15 @@ const aboutPage: JSX.Element = <>
 	/>
 
 	<Paragraph heading={"Resume"} content={<div className="col centerAll">
-		<img id="myResume" src="resumeBasic.png"></img>
+		<img id="myResume" src={`${mediaUrlPrefix}resumeBasic.png`}></img>
 		<p style={{textAlign: 'center'}}>
-			This is my resume, a parsable pdf version is available <a href="alexPeggResume2021.pdf" target="_blank">here</a>. 
+			This is my resume, a parsable pdf version is available <a href={`${mediaUrlPrefix}alexPeggResume2021.pdf`} target="_blank">here</a>. 
 			It has my contact information at the top if you would like to get in touch.
 		</p>
 	</div>} />
 </>
 
-const projectPage: JSX.Element = <>
+const projectPage = () => <>
 	{Projects.map((proj) => 
 		<ProjectElement 
 			heading={proj.name} 
@@ -318,7 +314,7 @@ const projectPage: JSX.Element = <>
 	)}
 </>
 
-const designPage: JSX.Element = <>
+const designPage = () => <>
 	{Designs.map((proj) => 
 		<DesignElement 
 			heading={proj.name} 
@@ -363,35 +359,18 @@ function getRandomTheme(): Theme {
 }
 
 function App({ initialTab }: { initialTab: string }): JSX.Element {
-	const [selectedTab, selectTab] = React.useState(initialTab);
 	const [selectedTheme, selectTheme] = React.useState(getRandomTheme());
 
 	React.useEffect(() => {
 		selectedTheme.addColourTheme();
 	}, [selectedTheme]);
 
-	const pages: { [key: string]: JSX.Element } = {
-		'about': aboutPage,
-		'projects': projectPage,
-		'designs': designPage,
-		//'contact': contactPage,
-	};
-
-	let tabs: JSX.Element[] = [];
 	let buttons: JSX.Element[] = [];
 
-	for (let pageName in pages) {
-		tabs.push(<SelectableTab
-			name={pageName}
-			selectedTab={selectedTab}
-			content={pages[pageName]}
-			key={pageName + 'page'}
-		/>);
+	for (let pageName of ['about', 'projects', 'designs']) {
 		buttons.push(<TabButton
 			name={pageName}
-			selectedTab={selectedTab}
-			selectTab={selectTab}
-			key={pageName + 'button'}
+			key={pageName}
 		/>);
 	}
 
@@ -406,31 +385,40 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 	})
 
 	return <MobileContext.Provider value={isMobileState}>
-		<div className={"col centerAll fullWidth"}>
+		<Router basename={process.env.PUBLIC_URL}>
+			<div className="col centerAll fullWidth">
 
-			<header className={'fullWidth col centerCross'}>
-				<div id={'themeButtonsContainer'}>
-					<div id={'themeButtons'} className={'row'}>
-						{themes.map((theme)=>
-							<ThemeButton 
-								theme={theme} 
-								selectedTheme={selectedTheme} 
-								selectTheme={selectTheme}
-								key={theme.name}
-							/>
-						)}
+				<header className='fullWidth col centerCross'>
+					<div id='themeButtonsContainer'>
+						<div id='themeButtons' className='row'>
+							{themes.map((theme)=>
+								<ThemeButton 
+									theme={theme} 
+									selectedTheme={selectedTheme} 
+									selectTheme={selectTheme}
+									key={theme.name}
+								/>
+							)}
+						</div>
 					</div>
-				</div>
-				{selectedTheme.getSVG()}
-				<div id={'tabButtons'} className={'row center fullWidth'}>
-					{buttons}
-				</div>
-			</header>
+					{selectedTheme.getSVG()}
+					<div id='tabButtons' className='row center fullWidth'>
+						{buttons}
+					</div>
+				</header>
 
-			<section id={"mainContent"} className={'col'}>{tabs}</section>
+				<section id="mainContent" className='col centerCross'>
+					<Switch>
+						<Route path="/homepage/designs" component={designPage}/>
+						<Route path="/homepage/projects" component={projectPage}/>
+						<Route path="/homepage/about" component={aboutPage}/>
+						<Route path="/" component={aboutPage}/>
+					</Switch>
+				</section>
 
-			<footer></footer>
-		</div>
+				<footer></footer>
+			</div>
+		</Router>
 	</MobileContext.Provider>
 }
 
