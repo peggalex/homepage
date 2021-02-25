@@ -61,7 +61,8 @@ app.listen(port, function () {
 });
 
 app.use('/', express.static('react_app/build'));
+app.use('/homepage/', express.static('react_app/build'));
 
-/*app.get('*', function(req, res) {
+/*app.get('/homepage/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'react_app/build', 'index.html'));
 });*/
