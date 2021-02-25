@@ -1,4 +1,5 @@
 import { TechType, SuperTechType, TechStack } from "./TechUtilities"
+import { mediaUrlPrefix } from "../Utilities"
 import React from 'react';
 import Icons from "../icons";
 
@@ -18,12 +19,12 @@ class Sqlite3SubType extends DatabaseTechSubType {}
 
 export class Sqlite3Tech extends DatabaseTechType<Sqlite3SubType>{
 	name = "Sqlite3";
-	icon = <img src="./sqliteIcon.png"></img>;
+	icon = <img src={`${mediaUrlPrefix}sqliteIcon.png`}></img>;
 }
 
 class Neo4jSubType extends DatabaseTechSubType {}
 
 export class Neo4jTech extends DatabaseTechType<Neo4jSubType>{
 	name = "Neo4j";
-	icon = <img src="./neo4jIcon.png"></img>;
+	icon = <img src={`${mediaUrlPrefix}neo4jIcon.png`}></img>;
 }

@@ -1,4 +1,5 @@
 import { TechType, SuperTechType, TechStack } from "./TechUtilities"
+import { mediaUrlPrefix } from "../Utilities"
 import React from 'react';
 import Icons from "../icons";
 
@@ -18,22 +19,22 @@ class PythonSubType extends BackEndTechSubType {}
 
 	export const FlaskSubType = new PythonSubType(
 		"Flask",
-		<img src="./flaskIcon.png"></img>
+		<img src={`${mediaUrlPrefix}flaskIcon.png`}></img>
 	);
 
 	export const SympySubType = new PythonSubType(
 		"Sympy",
-		<img src="./sympyIcon.png"></img>
+		<img src={`${mediaUrlPrefix}sympyIcon.png`}></img>
 	);
 
 	export const NumpySubType = new PythonSubType(
 		"Numpy",
-		<img src="./numpyIcon.png"></img>
+		<img src={`${mediaUrlPrefix}numpyIcon.png`}></img>
 	);
 
 	export const SklearnSubType = new PythonSubType(
 		"Sklearn",
-		<img src="./sklearnIcon.png"></img>
+		<img src={`${mediaUrlPrefix}sklearnIcon.png`}></img>
 	);
 
 export class PythonTech extends BackEndTechType<PythonSubType>{
@@ -45,15 +46,15 @@ class NodeSubType extends BackEndTechSubType {}
 
 	export const ExpressSubType = new NodeSubType(
 		"Express",
-		<img src="./expressIcon.png"></img>
+		<img src={`${mediaUrlPrefix}expressIcon.png`}></img>
 	);
 
 	export const WebSocketSubType = new NodeSubType(
 		"WebSocket",
-		<img src="./wsIcon.png"></img>
+		<img src={`${mediaUrlPrefix}wsIcon.png`}></img>
 	)
 
 export class NodeTech extends BackEndTechType<NodeSubType>{
 	name = "Node";
-	icon = <img src="./nodejsIcon.png"></img>;
+	icon = <img src={`${mediaUrlPrefix}nodejsIcon.png`}></img>;
 }

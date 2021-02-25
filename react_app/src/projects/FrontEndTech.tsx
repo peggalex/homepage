@@ -1,4 +1,5 @@
 import { TechType, SuperTechType, TechStack } from "./TechUtilities"
+import { mediaUrlPrefix } from "../Utilities"
 import React from 'react';
 import Icons from "../icons";
 
@@ -23,7 +24,7 @@ class WebSubType extends FrontEndTechSubType {}
 
 	export const TypeScriptSubType = new WebSubType(
 		"TypeScript",
-		<img src="./typescriptIcon.png"></img>
+		<img src={`${mediaUrlPrefix}typescriptIcon.png`}></img>
 	)
 
 export class WebTech extends FrontEndTechType<WebSubType>{
