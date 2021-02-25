@@ -193,7 +193,7 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 
 	return (
 		<div className={'project projectDesign col centerAll'}>
-			<a id={heading.toLowerCase().replaceAll(' ', '')} className='projectAnchor'></a>
+			<a id={heading.toLowerCase().replaceAll(' ', '_')} className='projectAnchor'></a>
 			<h1 className='paragraphHeading'>{heading}</h1>
 			{elementIfParam(url, <UrlElement url={url!}/>)}
 			{elementIfParam(github, <GithubElement src={github!}/>)}
