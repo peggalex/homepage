@@ -587,7 +587,7 @@ function Blossom(): JSX.Element {
 				</mpath></animateMotion></path>
 			</g>
 			<BlossomText/>
-			<image id='blossomQuote' href="./singleQuote.png" x="225" y="70" height="50px" width="30px"/>
+			<image id='blossomQuote' href="/singleQuote.png" x="225" y="70" height="50px" width="30px"/>
 		</svg>
 	);
 }
