@@ -27,7 +27,7 @@ function TabButton({ name }: {
 
 	const location = useLocation();
 	let path = `/homepage/${name}`;
-	let isSelected = location.pathname == path || (name == 'about' && location.pathname == '/');
+	let isSelected = location.pathname.startsWith(path) || (name == 'about' && location.pathname == '/');
 	return (
 		<Link to={path}>
 			<button
@@ -193,7 +193,7 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 
 	return (
 		<div className={'project projectDesign col centerAll'}>
-			<a id={heading.toLowerCase().replaceAll(' ', '_')} className='projectAnchor'></a>
+			<a id={heading.toLowerCase().replace(/ /g, '_')} className='projectAnchor'></a>
 			<h1 className='paragraphHeading'>{heading}</h1>
 			{elementIfParam(url, <UrlElement url={url!}/>)}
 			{elementIfParam(github, <GithubElement src={github!}/>)}
