@@ -50,6 +50,11 @@ function UrlElement({url}: {url: string}): JSX.Element{
 	)
 }
 
+function AnchorLinkElement({name}: {name: string}): JSX.Element{
+	let anchorId = name.toLowerCase().replace(/ /g, '_');
+	return <a id={anchorId} className='anchorLink'></a>
+}
+
 function Paragraph({ heading, content}: { 
 			heading: string | null, 
 			content: JSX.Element
@@ -193,7 +198,7 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 
 	return (
 		<div className={'project projectDesign col centerAll'}>
-			<a id={heading.toLowerCase().replace(/ /g, '_')} className='projectAnchor'></a>
+			<AnchorLinkElement name={heading}/>
 			<h1 className='paragraphHeading'>{heading}</h1>
 			{elementIfParam(url, <UrlElement url={url!}/>)}
 			{elementIfParam(github, <GithubElement src={github!}/>)}
@@ -223,6 +228,7 @@ function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInPro
 		tech={undefined}
 	/> : (
 		<div className={'design projectDesign row centerAllStretch'}>
+			<AnchorLinkElement name={heading}/>
 			<div className="leftHalf col">
 				<h1 className='paragraphHeading'>{heading}</h1>
 				<BulletPointsElement bulletPoints={bulletPoints}/>
@@ -291,6 +297,7 @@ const aboutPage = () => <>
 	/>
 
 	<Paragraph heading={"Resume"} content={<div className="col centerAll">
+		<AnchorLinkElement name='resume'/>
 		<img id="myResume" src={`${mediaUrlPrefix}resumeBasic.png`}></img>
 		<p style={{textAlign: 'center'}}>
 			This is my resume, a parsable pdf version is available <a href={`${mediaUrlPrefix}alexPeggResume2021.pdf`} target="_blank">here</a>. 

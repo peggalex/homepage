@@ -488,8 +488,8 @@ export const ByteDesign: Project = {
 	],
 	bulletPoints: [
 		<>App interface I designed for an <a href="https://cookhouselabs.com/summerhack-2020-a-race-against-the-clock-part-2/" target="_blank">insurance hackathon</a></>,
-		<>There was a lot more involved than just the user interface, but I wasn't really part of the competition and just helped out with the design.</>,
-		<>I implemented the design from a basic prompt drawn on paper.</>,
+		<>I wasn't part of the competition and just helped out with the design, they won the first place $2500 prize.</>,
+		<>I implemented the design from a basic sketch prompt, designed the logo and name 'byte' myself.</>,
 		<>The <a href="https://app.streamlinehq.com/home" target="_blank">icon set</a> is a black image (not svg) if you don't pay, so they contrast heavily. I tried to lean into it with strong black lettering, but ideally the icons would be softer and not monocolour.</>
 	]
 };
