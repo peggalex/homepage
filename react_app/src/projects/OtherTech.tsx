@@ -1,4 +1,5 @@
 import { TechType, SuperTechType, TechStack } from "./TechUtilities"
+import { mediaUrlPrefix } from "../Utilities"
 import React from 'react';
 import Icons from "../icons";
 
@@ -18,10 +19,10 @@ class AzureSubType extends OtherTechSubType {}
 
 	export const CloudComputingSubType = new AzureSubType(
 		"Cloud Computing",
-		<img src="./cloudComputingIcon.png"></img>
+		<img src={`${mediaUrlPrefix}cloudComputingIcon.png`}></img>
 	);
 
 export class AzureTech extends OtherTechType<AzureSubType>{
 	name = "Azure";
-	icon = <img src="./azureIcon.png"></img>;
+	icon = <img src={`${mediaUrlPrefix}azureIcon.png`}></img>;
 }

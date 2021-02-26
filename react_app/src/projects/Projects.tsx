@@ -627,7 +627,7 @@ export const ResumeDesign: Project = {
 	],
 	bulletPoints: [
 		<>This is my current resume, designed without a template by myself in Sketch.</>,
-		<>My previous resume was made in latex using a popular template.</>,
+		<>My previous resume was used a popular latex template.</>,
 		<>I thought I'd use some of the design techniques that I've learned to create my own resume that doesn't have the restrictions of the latex template, and is more unique.</>,
 		<>It's more compact and visually appleasing than the previous one in my opinion, and I'm happy with it.</>
 	]
