@@ -2,7 +2,7 @@ import React, { SetStateAction, useContext } from 'react';
 import './slideshow.css';
 import $ from 'jquery';
 import Icons from "../icons"
-import { MobileContext } from '../Utilities';
+import { MobileContext, mediaUrlPrefix } from '../Utilities';
 
 const loadGithub = true;
 const urlPrefix = loadGithub ? 'https://peggalex.github.io/media/' : 'https://alexpegg.com/homepage/';
@@ -95,7 +95,7 @@ function addFullscreenImg(src: string): void{
 
     let fullscreenContainer = $(`
         <div id='fullscreenContainer' class='centerAll'>
-            <img id='fullscreenImg' src="${src}"/>
+            <img id='fullscreenImg' src="${mediaUrlPrefix}${src}"/>
         </div>
     `);
 
