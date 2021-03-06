@@ -434,6 +434,61 @@ export const FindingNameoProj: Project = {
 	]
 };
 
+export const TurtleArtProj: Project = {
+	name: "Turtle Art",
+	github: "https://github.com/peggalex/turtleArt",
+	isWorkInProgress: false,
+	images: [
+		{
+			src: './turtleArtBasic.png',
+			isVideo: false,
+			caption: 'This is the design. The mountains, clouds, and flowers generate new each run.'
+		},
+		{
+			src: './turtleArtDrawing.mp4',
+			isVideo: true,
+			caption: 'The program draws the shapes in turtle first.'
+		},
+		{
+			src: './turtleArtDemo.mp4',
+			isVideo: true,
+			caption: 'This is the turtle program animated.'
+		},
+		{
+			src: './turtleArtFirstProj.mp4',
+			isVideo: true,
+			caption: "Inspired by my first-ever program I made in first year, this flower drawer."
+		},		
+		{
+			src: './turtleArtFirstProj2.mp4',
+			isVideo: true,
+			caption: 'This is what it looks like after a while.'
+		}
+	],
+	bulletPoints: [
+		<>Program that draws a nature scene</>,
+		<>When I was a teaching assistant, we made students write a python turtle race program.</>,
+		<>This got me thinking about how much animation I could do with python's turtle.</>,
+		<>The first project independent project I ever did myself was drawing a flower in turtle.</>,
+		<>I was really proud of it at the time, and that further inspired me to animate a nature scene.</>
+	],
+	tech: [
+		new BackEndTechStack(new PythonTech([]))
+	]
+};
+
+export const Projects: Project[] = [
+	FindingNameoProj,
+	WhisperProj,
+	MicrographerProj,
+	CompetitionProj,
+	Fortnite2DProj,
+	TwentyFortyEightProj,
+	PathfinderProj,
+	SimpleGradeCalculatorProj,
+	TurtleArtProj
+];
+
 export const HongKongDesign: Project = {
 	name: "Hong Kong Skyline",
 	url: "https://alexpegg.com/findingNameo",
@@ -830,17 +885,6 @@ export const HomepageDesign: Project = {
     Professional resume <a href='https://www.overleaf.com/read/kttybhdbwppk'>here</a>.`
 	)} />
 */
-
-export const Projects: Project[] = [
-	FindingNameoProj,
-	WhisperProj,
-	MicrographerProj,
-	CompetitionProj,
-	Fortnite2DProj,
-	TwentyFortyEightProj,
-	PathfinderProj,
-	SimpleGradeCalculatorProj
-];
 
 export const Designs: Project[] = [
 	HongKongDesign,	
