@@ -420,9 +420,9 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 
 				<section id="mainContent" className='col centerCross'>
 					<Switch>
-						<Route path="/designs" component={designPage}/>
-						<Route path="/projects" component={projectPage}/>
-						<Route path="/about" component={aboutPage}/>
+						<Route path="/homepage/designs" component={designPage}/>
+						<Route path="/homepage/projects" component={projectPage}/>
+						<Route path="/homepage/about" component={aboutPage}/>
 						<Route path="/" component={aboutPage}/>
 					</Switch>
 				</section>
