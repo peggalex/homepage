@@ -426,11 +426,9 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 						<Route path="/" component={aboutPage}/>
 					</Switch>
 				</section>
-
-				<footer></footer>
+				<MyFooter/>
 			</div>
 		</Router>
-		<MyFooter/>
 	</MobileContext.Provider>
 }
 
