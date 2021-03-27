@@ -1,6 +1,7 @@
 
 @font-face {
     font-family: 'Gilda Display';
+    font-display: swap;
     src: url('../../fonts/Gilda_Display/GildaDisplay-Regular.ttf');
 }
 

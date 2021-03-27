@@ -50,9 +50,8 @@ function UrlElement({url}: {url: string}): JSX.Element{
 	)
 }
 
-function AnchorLinkElement({name}: {name: string}): JSX.Element{
-	let anchorId = name.toLowerCase().replace(/ /g, '_');
-	return <a id={anchorId} className='anchorLink'></a>
+function SlugHeading(heading: string): string {
+	return heading.toLowerCase().replace(/ /g, '_');
 }
 
 function Paragraph({ heading, content}: { 
@@ -197,8 +196,7 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 		}): JSX.Element {
 
 	return (
-		<div className={'project projectDesign col centerAll'}>
-			<AnchorLinkElement name={heading}/>
+		<div id={SlugHeading(heading)} className={'project projectDesign col centerAll'}>
 			<h1 className='paragraphHeading'>{heading}</h1>
 			{elementIfParam(url, <UrlElement url={url!}/>)}
 			{elementIfParam(github, <GithubElement src={github!}/>)}
@@ -227,8 +225,7 @@ function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInPro
 		github={undefined}
 		tech={undefined}
 	/> : (
-		<div className={'design projectDesign row centerAllStretch'}>
-			<AnchorLinkElement name={heading}/>
+		<div id={SlugHeading(heading)} className={'design projectDesign row centerAllStretch'}>
 			<div className="leftHalf col">
 				<h1 className='paragraphHeading'>{heading}</h1>
 				<BulletPointsElement bulletPoints={bulletPoints}/>
@@ -270,7 +267,7 @@ function parseParagraph(str: string): JSX.Element {
 
 const aboutPage = () => <>
 	<Paragraph heading={null} content={<div className="col centerAll">
-			<img id="myFace" src={`${mediaUrlPrefix}me.png`}></img>
+			<img id="myFace" alt="photo of Alex Pegg" src={`${mediaUrlPrefix}me.png`}></img>
 			<p style={{textAlign: 'center'}}>
 				Hi, my name is Alex Pegg. Welcome to my website! 
 				Here I have projects and designs I've done that I am especially proud of.
@@ -296,14 +293,15 @@ const aboutPage = () => <>
 	</p>}
 	/>
 
-	<Paragraph heading={"Resume"} content={<div className="col centerAll">
-		<AnchorLinkElement name='resume'/>
-		<img id="myResume" src={`${mediaUrlPrefix}resumeBasic.png`}></img>
-		<p style={{textAlign: 'center'}}>
-			This is my resume, a parsable pdf version is available <a href={`${mediaUrlPrefix}alexPeggResume2021.pdf`} target="_blank">here</a>. 
-			It has my contact information at the top if you would like to get in touch.
-		</p>
-	</div>} />
+	<Paragraph heading={"Resume"} content={
+		<div id={SlugHeading('resume')} className="col centerAll">
+			<img id="myResume" alt="image of my resume" src={`${mediaUrlPrefix}resumeBasicSmall.png`}></img>
+			<p style={{textAlign: 'center'}}>
+				This is my resume (<a href={`${mediaUrlPrefix}alexPeggResume2021.pdf`} rel="noopener" target="_blank">parsable pdf version</a>). 
+				It has my contact information at the top if you would like to get in touch.
+			</p>
+		</div>
+	} />
 </>
 
 const projectPage = () => <>

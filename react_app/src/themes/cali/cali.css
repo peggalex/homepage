@@ -1,11 +1,13 @@
 @font-face {
     font-family: 'Retro Stereo Wide';
     src: url('../../fonts/retro_stereo_wide/Retro\ Stereo\ Wide.ttf');
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'anpuit';
     src: url('../../fonts/ArTarumianAnpuit/ANPUIT.TTF');
+    font-display: swap;
 }
 
 .retroAlex {
