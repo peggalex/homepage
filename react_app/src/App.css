@@ -489,6 +489,17 @@ button {
   width: 50%;
 }
 
+footer {
+  background-color: var(--grey200);
+  height: 2rem;
+}
+
+footer > p {
+  margin: 0;
+  color: var(--grey700);
+  font-size: 0.8rem;
+}
+
 @media only screen and (orientation: portrait) {
 	/*:root {
 		--paragraphWidth: 90vw !important;

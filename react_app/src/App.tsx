@@ -349,6 +349,12 @@ const contactPage: JSX.Element = <>
 	</p>} />
 </>
 
+function MyFooter(): JSX.Element {
+	return <footer className="row centerAll">
+		<p>Copyright © <a href="https://www.linkedin.com/in/alexvilapegg/" target="_blank">Alex Pegg</a> • All Rights Reserved</p>
+	</footer>
+}
+
 const themes: Theme[] = [
 	SheepTheme, 
 	BlossomTheme, 
@@ -424,6 +430,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 				<footer></footer>
 			</div>
 		</Router>
+		<MyFooter/>
 	</MobileContext.Provider>
 }
 
