@@ -37,6 +37,11 @@ class PythonSubType extends BackEndTechSubType {}
 		<img src={`${mediaUrlPrefix}sklearnIcon.png`}></img>
 	);
 
+	export const BS4 = new PythonSubType(
+		"bs4",
+		<></>
+	);
+
 export class PythonTech extends BackEndTechType<PythonSubType>{
 	name = "Python";
 	icon = Icons.Python;

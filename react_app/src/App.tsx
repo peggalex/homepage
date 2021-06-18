@@ -18,15 +18,15 @@ import $ from 'jquery';
 import Icons from './icons';
 import { Projects, Designs } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
-import { noTabNewline, elementIfParam, isMobile, MobileContext, mediaUrlPrefix } from './Utilities';
-import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
+import { noTabNewline, elementIfParam, isMobile, MobileContext, mediaUrlPrefix, pageSubDirectory } from './Utilities';
+import { BrowserRouter as Router, Switch, Route, Link, useLocation, useParams } from 'react-router-dom';
 
 function TabButton({ name }: { 
-			name: string
+			name: string,
 		}): JSX.Element {
 
 	const location = useLocation();
-	let path = `/homepage/${name}`;
+	let path = `/${pageSubDirectory}/${name}`;
 	let isSelected = location.pathname.startsWith(path) || (name == 'about' && location.pathname == '/');
 	return (
 		<Link to={path}>
@@ -195,8 +195,19 @@ function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowEleme
 			tech?: TechStack<SuperTechType<TechType>>[]
 		}): JSX.Element {
 
+	let { param } = useParams<{param?: string}>();
+	let slug = SlugHeading(heading);
+	const projRef = React.useRef(null as HTMLDivElement|null);
+
+	React.useEffect(() => {
+        if (slug === param?.toLowerCase()){
+            projRef.current?.scrollIntoView({ block: 'start'});
+        }
+	}, []);
+
+
 	return (
-		<div id={SlugHeading(heading)} className={'project projectDesign col centerAll'}>
+		<div id={slug} className={'project projectDesign col centerAll'} ref={projRef}>
 			<h1 className='paragraphHeading'>{heading}</h1>
 			{elementIfParam(url, <UrlElement url={url!}/>)}
 			{elementIfParam(github, <GithubElement src={github!}/>)}
@@ -216,6 +227,16 @@ function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInPro
 
 	const isMobileState = useContext(MobileContext);
 
+	let { param } = useParams<{param?: string}>();
+	let slug = SlugHeading(heading);
+	const designRef = React.useRef(null as HTMLDivElement|null);
+
+	React.useEffect(() => {
+        if (!isMobileState && slug === param?.toLowerCase()){
+            designRef.current?.scrollIntoView({ block: 'start'});
+        }
+	}, []);
+
 	return isMobileState ? <ProjectElement 
 		heading={heading} 
 		isWorkInProgress={isWorkInProgress}
@@ -225,7 +246,7 @@ function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInPro
 		github={undefined}
 		tech={undefined}
 	/> : (
-		<div id={SlugHeading(heading)} className={'design projectDesign row centerAllStretch'}>
+		<div id={slug} className={'design projectDesign row centerAllStretch'} ref={designRef}>
 			<div className="leftHalf col">
 				<h1 className='paragraphHeading'>{heading}</h1>
 				<BulletPointsElement bulletPoints={bulletPoints}/>
@@ -369,21 +390,18 @@ function getRandomTheme(): Theme {
 	return themes[theme_i];
 }
 
+const Tabs: { [tabName: string]: () => JSX.Element} = {
+	'about': aboutPage,
+	'projects': projectPage,
+	'designs': designPage
+};
+
 function App({ initialTab }: { initialTab: string }): JSX.Element {
 	const [selectedTheme, selectTheme] = React.useState(getRandomTheme());
 
 	React.useEffect(() => {
 		selectedTheme.addColourTheme();
 	}, [selectedTheme]);
-
-	let buttons: JSX.Element[] = [];
-
-	for (let pageName of ['about', 'projects', 'designs']) {
-		buttons.push(<TabButton
-			name={pageName}
-			key={pageName}
-		/>);
-	}
 
 	const [isMobileState, setIsMobile] = React.useState(isMobile());
 
@@ -414,17 +432,18 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 					</div>
 					{selectedTheme.getSVG()}
 					<div id='tabButtons' className='row center fullWidth'>
-						{buttons}
+						{Object.keys(Tabs).map(
+							tabName => <TabButton name={tabName} key={tabName}/>
+						)}
 					</div>
 				</header>
 
 				<section id="mainContent" className='col centerCross'>
 					<Switch>
-						<Route path="/homepage/designs" component={designPage}/>
-						<Route path="/homepage/projects" component={projectPage}/>
-						<Route path="/homepage/about" component={aboutPage}/>
-						<Route path="/homepage" component={aboutPage}/>
-						<Route path="/" component={aboutPage}/>
+						{Object.keys(Tabs).map(
+							tabName => <Route path={`/${pageSubDirectory}/${tabName}/:param?`} component={Tabs[tabName]} key={tabName}/>
+						)}
+						<Route exact path={["/homepage", "/"]} component={aboutPage}/>
 					</Switch>
 				</section>
 				<MyFooter/>

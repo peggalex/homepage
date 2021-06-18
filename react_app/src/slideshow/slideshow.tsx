@@ -25,10 +25,10 @@ function SlideshowPreview({slideshowElementObj: {src, isVideo}, clickHandler, is
             onClick={clickHandler}
         >
             {isVideo ? 
-                <video key={src}>
+                <video key={src} preload="metadata">
                     <source src={`${urlPrefix}${src}#t=0.1`} type="video/mp4"/>
                     {/*<source src={src} type="video/mp4"/>*/}
-                </video> : <img src={`${urlPrefix}${src}`}/>}
+                </video> : <img src={`${urlPrefix}${src}`} loading="lazy"/>}
             {/*
                 https://stackoverflow.com/questions/7323053/dynamically-using-the-first-frame-as-poster-in-html5-video
                 

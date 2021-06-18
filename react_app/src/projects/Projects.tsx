@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FrontEndTechType, FrontEndTechSubType, WebTech, ReactSubType, FrontEndTechStack, TypeScriptSubType } from './FrontEndTech';
-import { BackEndTechType, BackEndTechSubType, ExpressSubType, WebSocketSubType, NodeTech, SympySubType, PythonTech, FlaskSubType, NumpySubType, SklearnSubType, BackEndTechStack } from './BackEndTech';
+import { BackEndTechType, BackEndTechSubType, ExpressSubType, WebSocketSubType, NodeTech, SympySubType, PythonTech, FlaskSubType, NumpySubType, SklearnSubType, BackEndTechStack, BS4 as BeautifulSoup } from './BackEndTech';
 import { DatabaseTechType, DatabaseTechSubType, Sqlite3Tech, DatabaseTechStack, Neo4jTech } from './DatabaseTech';
 import { SlideshowElementObj } from '../slideshow/slideshow';
 import { TechStack, SuperTechType, TechType } from './TechUtilities';
@@ -477,7 +477,76 @@ export const TurtleArtProj: Project = {
 	]
 };
 
+
+export const RCHKChampionships: Project = {
+	name: "RCHK Championships",
+	url: "https://alexpegg.com/rchkChampionships",
+	github: "https://github.com/peggalex/rchkChampionships",
+	isWorkInProgress: false,
+	images: [
+		{
+			src: './rchkChampionshipsBasic.png',
+			isVideo: false,
+			caption: 'This is the UI (which I really like). I tried to use the same stylings as League of Legends, without using any of their trademarks.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayers.mp4',
+			isVideo: true,
+			caption: 'This is the player screen. It shows k/d/a, cs per minute and a breakdown of the champions played. I have to use a riot endpoint to get profile pictures.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayersSort.mp4',
+			isVideo: true,
+			caption: 'You can sort the players by different attributes, ascending or descending. Theres also a search, and you can click on a champion to see the matches played.'
+		},
+		{
+			src: './rchkChampionshipsDemoMatches.mp4',
+			isVideo: true,
+			caption: "These are the matches. I could complicate the UI by showing all the data, but the true match history does all that already (the button on the right). The only draw back is that the player names are blanked."
+		},		
+		{
+			src: './rchkChampionshipsDemoMatchesFilter.mp4',
+			isVideo: true,
+			caption: 'You can filter by player, and then by champion. There\'s a lot of state to store here, so I used a react reducer. You can click on a player to go to their overall stats.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadFile.mp4',
+			isVideo: true,
+			caption: 'This is how I get over the fact that you can\'t get private data via public API. If they just log in and save the html, I can parse it. I\'ve tested different html formats in firefox, chrome (mac and windows) and safari.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadHTML.mp4',
+			isVideo: true,
+			caption: 'Instead of uploading the html file, you can simply inspect element and copy the html. This is faster because there\'s no download and we don\'t send images, but is a bit more technical.'
+		}
+	],
+	bulletPoints: [
+		<>Program for displaying statistics for League of Legends matches.</>,
+		<>Me and my friends played private 5v5 custom matches in LoL.</>,
+		<>This is not accessable by public APIs, so someone made a manual spreadsheet to show stats.</>,
+		<>To automate this, I created a web app that instead parses .html and does some webscraping</>,
+	],
+	tech: [
+		new FrontEndTechStack(
+			new WebTech([
+				TypeScriptSubType,
+				ReactSubType
+			])
+		),
+		new BackEndTechStack(
+			new PythonTech([
+				FlaskSubType,
+				BeautifulSoup
+			])
+		),
+		new DatabaseTechStack(
+			new Sqlite3Tech([])
+		)
+	]
+};
+
 export const Projects: Project[] = [
+	RCHKChampionships,
 	FindingNameoProj,
 	WhisperProj,
 	MicrographerProj,
@@ -819,72 +888,6 @@ export const HomepageDesign: Project = {
 		<>The page headers are vector art I've done myself, animated with css and svg animations. I'm quite happy with them, and I plan to add more in the future.</>
 	]
 };
-/*
-	<Paragraph heading={"Scotiabank Big Data AI competition"} content={parseParagraph(
-		`I participated in a \
-        <a href="https://www.utm.utoronto.ca/imi/imi-events/big-data-ai-case-competition">competition</a> \
-        hosted by scotiabank to identify human traffickting pertaining to money laundering in bank data.
-        We <a href="https://www.utm.utoronto.ca/imi/news/results-are-2020-big-data-ai-case-competition">won</a> \
-        the first place prize of $3000.
-        They gave us real bank data and tasked us with classifying accounts.
-        Using neo4j, I parameterised the data with addition aggregation parameters.
-        Then, using scipy and numpy, I generated a normal multivariate cdf of the data, \
-        and from there it's just selecting outliers at the tails.
-        Here are some <a href="https://peggalex.github.io/graphDemo">highlight slides</a> \
-        and the <a href="https://peggalex.github.io/BigDataCompPPT_Incorgnito.pdf">entire presentation</a>.`
-	)} />
-
-	<Paragraph heading={"Fortnite2D"} content={parseParagraph(
-		`(!!!WORK IN PROGRESS!!!)
-        <a href="https://alexpegg.com/ftd">https://alexpegg.com/ftd</a>, source: \
-        <a href="https://github.com/peggalex/multiplayerShooter">https://github.com/peggalex/multiplayerShooter</a></p>
-        Multiplayer shooting game based off of fortnite.
-        React frontend (canvas for game), nodejs backend with express and websockets. Sqlite database.
-        Features graphics, sounds, weapons and ammo to pick up.
-        Front and backend validation for express routing calls and websocket connections.
-        This is the only project I put in my portfolio that was actually school work, as per \
-        <a href="http://142.1.200.148/~ta/assignments/03/index.php">this assignment</a>.
-        There's a lot I'd like to fix:
-        <ul>
-          <li>I would like to redo the backend in typescript (never tried before).</li>
-          <li> The front end is currently in react (class components), I want to redo it in React hooks. </li>
-          <li> The assignment asked for a lot of fields in registration, I want to cut down on that. </li>
-          <li> Bug: network request to the server whenever audio played (even if preloaded property set). </li>
-          <li> Feature: Make weapons respawn automatically and add ring</li>
-        </ul>`
-	)} />
-
-	<Paragraph heading={'Hong Kong SVG animation'} content={parseParagraph(
-		`(!!!WORK IN PROGRESS!!!)
-    <a href="https:/peggalex.github.io/hk">https:/peggalex.github.io/hk</a>
-    SVG artwork of Victoria Harbour in Hong Kong, animated using CSS.
-    Recommend firefox for optimal SVG performance.`
-	)} />
-
-	<Paragraph heading={"Shortest Path Finder"} content={parseParagraph(
-		`(!!!WORK IN PROGRESS!!!)
-    Shortest path from a point A to point B given drawn polygon obstacles.
-    Allows for uploading images to trace on top of.
-    Currently in the process of converting my working python code \
-    <a href='https://github.com/peggalex/pathfinder'>here</a> to javascript`
-	)} />
-
-	<Paragraph heading={'Converting Node Graphs to Latex'} content={parseParagraph(
-		`(!!!WORK IN PROGRESS!!!)
-    <a href="https://peggalex.github.io/grapher.html">https://peggalex.github.com/grapher.html</a>
-    Draw a node graph and then convert it into code that can be copied into latex.
-    Expands on features from this similar website: \
-    <a href="http://madebyevan.com/fsm/"> http://madebyevan.com/fsm/</a>.`
-	)} />
-
-	<Paragraph heading={'HTML Resume'} content={parseParagraph(
-		`<a href="https://peggalex.github.io/resume3.html">https://peggalex.github.com/resume3.html</a>
-    Resume stylized to look like an ide using a combination of syntax from different programming languages.
-    Webfonts unpredictable in Safari, Firefox - recommend chrome
-    Compiled pdf version <a href="https://peggalex.github.io/Alex_Pegg_Resume.pdf">here</a>.
-    Professional resume <a href='https://www.overleaf.com/read/kttybhdbwppk'>here</a>.`
-	)} />
-*/
 
 export const Designs: Project[] = [
 	HongKongDesign,	
