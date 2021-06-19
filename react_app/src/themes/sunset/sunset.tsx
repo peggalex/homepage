@@ -56,7 +56,8 @@ function Sunset(): JSX.Element {
     React.useEffect((): ()=>void =>{
         var style = $(`
             <style>
-                .selected { animation: sunset linear 5s; }
+                #tabButtons .selected { animation: sunset linear 5s; }
+                #tabButtons .selected { animation: sunset linear 5s; }
                 .paragraphHeading { animation: sunsetText linear 5s forwards; }
             </style>
         `)[0];
@@ -84,10 +85,10 @@ function Sunset(): JSX.Element {
                     <stop offset="0" stopColor="#FF1C00">
                         <animate attributeName="stop-color" values="#A9FFFB;#FFD07E;#FF1C00" dur="5s" repeatCount="1" />
                     </stop>
-                    <stop offset="0.73" stopColor="#FFD07E">
+                    <stop offset="1" stopColor="#FFD07E">
                         <animate attributeName="stop-color" values="#A9FFFB;#FFD07E;" dur="5s" repeatCount="1" />
                     </stop>
-                    <stop offset="1" stopColor="#A9FFFB"/>
+                    {/*<stop offset="1" stopColor="#A9FFFB"/>*/}
                 </linearGradient>
                 <path fill="url(#skyGradient)" d="M1001,266.528V0H1v299.5C1,299.5,520,227.44,1001,266.528z"/>
                 <path d="M1001,264.528C520,225.44,1,299.5,1,299.5l1000,1.601V264.528z"/>
