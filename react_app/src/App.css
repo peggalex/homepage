@@ -206,9 +206,8 @@ button {
 
 .bottomHalfButtons > .selected {
   color: var(--buttonSelectedColour);
-  background-color: transparent;
+  background-color: var(--grey300);
   border-bottom: solid thick var(--buttonSelectedColour);
-  filter: brightness(0.9);
 }
 
 .bottomHalfContent .techStack {
