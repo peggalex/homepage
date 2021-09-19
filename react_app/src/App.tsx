@@ -310,7 +310,7 @@ const aboutPage = () => <>
 	/>
 	<Paragraph heading={"Hobbies"} content={<p>
 		I like biking, working on programming projects, watching TV and playing games with my friends.
-		My favourite project so far would be FindingNameo, and my favourite TV shows are The Office, Community and The Mandolorian. 
+		My favourite project so far would be FindingNameo, and my favourite TV shows are The Office, Community and The Mandalorian. 
 	</p>}
 	/>
 
