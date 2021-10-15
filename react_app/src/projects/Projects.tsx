@@ -72,7 +72,7 @@ export const WhisperProj: Project = {
 
 export const MicrographerProj: Project = {
 	name: "Micrographer",
-	url: "https://mcsapps.utm.utoronto.ca/micrographer",
+	url: "https://alexpegg.com/micrographer",
 	isWorkInProgress: false,
 	images: [
 		{
