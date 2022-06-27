@@ -28,3 +28,10 @@ export class Neo4jTech extends DatabaseTechType<Neo4jSubType>{
 	name = "Neo4j";
 	icon = <img src={`${mediaUrlPrefix}neo4jIcon.png`}></img>;
 }
+
+class MongoDBSubType extends DatabaseTechSubType {}
+
+export class MongoDBTech extends DatabaseTechType<MongoDBSubType>{
+	name = "MongoDB";
+	icon = <img src={`${mediaUrlPrefix}mongoIcon.png`}></img>;
+}

@@ -1,12 +1,19 @@
 import $ from 'jquery';
 import { createContext } from 'react';
+import { Project } from './projects/Projects';
 
 export var isMobile = () => window.matchMedia("(orientation: portrait)").matches;
 
-const loadGithub = true;
-export const mediaUrlPrefix = loadGithub ? 'https://peggalex.github.io/media/' : 'https://alexpegg.com/homepage/';
+export const mediaUrlPrefix = process.env.REACT_APP_MEDIAURLPREFIX;
 
-export const pageSubDirectory = "homepage";
+export const pageSubDirectory = process.env.REACT_APP_SUBDOMAIN;
+
+export enum RouteSubdomains {
+    ABOUT = 'about',
+	PROJECTS = 'projects',
+	TESTIMONIES = 'testimony',
+	DESIGNS = 'designs'
+}
 
 export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 export type Ref<T> = React.MutableRefObject<T>;
@@ -57,10 +64,19 @@ export const noTabs = (str: string): string => str.replace(/\t/g, '');
 export const noTabNewline = (str: string): string => noTabs(str).replace(/\n/g, ' ');
 
 export const hasAttributes = (obj: Object, attrs: string[]): boolean => 
-    attrs.every((a) => (obj as {[key: string]: any})[a] != undefined);
+    attrs.every((a) => (obj as {[key: string]: any})[a] !== undefined);
 
 export const elementIfParam = (param: any, element: JSX.Element) => (param === undefined) ? null : element;
 
 export const getScreenSize: (() => string) = () => `${window.innerWidth},${window.innerHeight}`;
 
 export const MobileContext = createContext(isMobile());
+
+export const slugHeading = (heading: string) => heading.toLowerCase().replace(/ /g, '_');
+
+export const getProjectIsDesign = (proj: Project) => proj.tech === undefined;
+
+export const getProjectUrl = (proj: Project) => `${process.env.PUBLIC_URL}/${pageSubDirectory}/${getProjectIsDesign(proj) ? RouteSubdomains.DESIGNS : RouteSubdomains.PROJECTS}/${slugHeading(proj.name)}`;
+export const getTestimonyUrl = (proj: Project) => `${process.env.PUBLIC_URL}/${pageSubDirectory}/${RouteSubdomains.TESTIMONIES}/${slugHeading(proj.name)}`;
+
+export const copyText = (text: string) => navigator.clipboard.writeText(text);

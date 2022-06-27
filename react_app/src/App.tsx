@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import './App.css';
 import './tailwindColours.css'
 
@@ -11,14 +11,11 @@ import { CaliTheme } from './themes/cali/cali';
 
 
 import { Theme, ThemeButton } from './themes/themes';
-import { Slideshow, SlideshowElementObj } from './slideshow/slideshow';
-import './exampleCobb.png';
-import './micrographerDemo1.gif';
-import $ from 'jquery';
+import { Slideshow } from './slideshow/slideshow';
 import Icons from './icons';
-import { Projects, Designs } from './projects/Projects';
+import { TestimonyQuote, Projects, Designs, Project } from './projects/Projects';
 import { SuperTechType, TechType, TechStack } from './projects/TechUtilities';
-import { noTabNewline, elementIfParam, isMobile, MobileContext, mediaUrlPrefix, pageSubDirectory } from './Utilities';
+import { elementIfParam, isMobile, MobileContext, mediaUrlPrefix, pageSubDirectory, RouteSubdomains, slugHeading, getProjectUrl, getProjectIsDesign, getTestimonyUrl } from './Utilities';
 import { BrowserRouter as Router, Switch, Route, Link, useLocation, useParams } from 'react-router-dom';
 
 function TabButton({ name }: { 
@@ -27,7 +24,7 @@ function TabButton({ name }: {
 
 	const location = useLocation();
 	let path = `/${pageSubDirectory}/${name}`;
-	let isSelected = location.pathname.startsWith(path) || (name == 'about' && location.pathname == '/');
+	let isSelected = location.pathname.startsWith(path) || (name === 'about' && location.pathname === '/');
 	return (
 		<Link to={path}>
 			<button
@@ -42,17 +39,14 @@ function TabButton({ name }: {
 
 function UrlElement({url}: {url: string}): JSX.Element{
     return (
-		<a className='url row centerCross' href={url} target="_blank">
-			{Icons.Link}
+		<a className='url row centerCross' href={url} rel="noopener noreferrer" title="Open hosted project" target="_blank">
+			{Icons.Globe}
 			<span>{url}</span>
-			{Icons.Search}
+			{Icons.Link}
 		</a>
 	)
 }
 
-function SlugHeading(heading: string): string {
-	return heading.toLowerCase().replace(/ /g, '_');
-}
 
 function Paragraph({ heading, content}: { 
 			heading: string | null, 
@@ -97,7 +91,7 @@ function TechElement({tech}: {tech:  TechStack<SuperTechType<TechType>>[]}): JSX
 }
 
 function GithubElement({src}: {src: string}){
-	return <a className="githubContainer clickable" href={src} target="_blank" title="GitHub source code">
+	return <a className="githubContainer clickable" href={src} rel="noopener noreferrer" target="_blank" title="GitHub source code">
 		{Icons.Github}
 	</a>
 }
@@ -105,7 +99,7 @@ function GithubElement({src}: {src: string}){
 function BulletPointsElement({bulletPoints}: {bulletPoints: JSX.Element[]}){
 	return <div className='paragraphContent'>
 		{bulletPoints.map((bp, i) => (
-			<div className="row" key={i}>
+			<div className="row centerCross" key={i}>
 				{Icons.ArrowRight}
 				<div>
 					<p>{bp}</p>
@@ -137,7 +131,7 @@ function ProjectBottomHalfMobileElement({techElement, bulletPointsElement}: {
 		<div className="bottomHalfButtons row">
 			{tabs.map((tab, i) => (
 				<button 
-					className={(selectedTab.name == tab.name ? "selected" : "notSelected") + " row centerAll"} 
+					className={(selectedTab.name === tab.name ? "selected" : "notSelected") + " row centerAll"} 
 					onClick={() => selectTab(tab)}
 					key={i}
 				>
@@ -185,110 +179,142 @@ function WorkInProgressElement(){
 	</> 
 }
 
-function ProjectElement({heading, isWorkInProgress, bulletPoints, slideshowElementObjs, url, github, tech}: { 
-			heading: string, 
-			isWorkInProgress: boolean
-			bulletPoints: JSX.Element[], 
-			slideshowElementObjs: SlideshowElementObj[],
-			url: string | undefined,
-			github: string | undefined,
-			tech?: TechStack<SuperTechType<TechType>>[]
-		}): JSX.Element {
+function ProjectHeading({project}: {project: Project}): JSX.Element {
+	const monthStr = project.date.toLocaleDateString('en-US', { month: 'short'});		
+	const year = project.date.getFullYear();
+	const dateStr = `${monthStr} ${year}`;
 
+	return <div className="paragraphHeading row centerCross">
+		<button className="projectLink centerAll" title={`Copy link to ${getProjectIsDesign(project) ? "design" : "project"}`} onClick={() => {
+			const projUrl = getProjectUrl(project);
+			navigator.clipboard.writeText(projUrl);
+			alert(`Copied url to clipboard: "${projUrl}"`);
+		}}>
+			{Icons.CopyLink}
+		</button> 
+		<h1>{project.name} <span> • {dateStr}</span></h1>
+	</div> 
+}
+
+function ProjectUpperHalfElement({project}: {project: Project}){
+
+	const {url, github, images} = project;
+	
+	return <div className="upperHalf">
+		<ProjectHeading project={project}/>
+		{elementIfParam(url, <UrlElement url={url!}/>)}
+		{project.testimony && <TestimonyLink url={getTestimonyUrl(project)} text="Testimony" isTestimony={false}/>}
+		{elementIfParam(github, <GithubElement src={github!}/>)}
+		<Slideshow slideshowElementObjs={images} />
+	</div>;
+}
+
+function ProjectElement({project}: { project: Project }): JSX.Element {
+
+	const {name, isWorkInProgress, bulletPoints, tech} = project;
 	let { param } = useParams<{param?: string}>();
-	let slug = SlugHeading(heading);
+	let slug = slugHeading(name);
 	const projRef = React.useRef(null as HTMLDivElement|null);
 
 	React.useEffect(() => {
         if (slug === param?.toLowerCase()){
-            projRef.current?.scrollIntoView({ block: 'start'});
+            projRef.current?.scrollIntoView({ block: 'start', behavior: "smooth"});
         }
-	}, []);
+	}, [param, slug]);
 
 
 	return (
-		<div id={slug} className={'project projectDesign col centerAll'} ref={projRef}>
-			<h1 className='paragraphHeading'>{heading}</h1>
-			{elementIfParam(url, <UrlElement url={url!}/>)}
-			{elementIfParam(github, <GithubElement src={github!}/>)}
-			<Slideshow slideshowElementObjs={slideshowElementObjs} />
+		<div id={slug} className={'project projectDesign col'} ref={projRef}>
+			<ProjectUpperHalfElement project={project}/>
 			<ProjectBottomHalfElement tech={tech} bulletPoints={bulletPoints}/>
 			{isWorkInProgress ? <WorkInProgressElement/> : null}
 		</div>
 	);
 }
 
-function DesignElement({heading, bulletPoints, slideshowElementObjs, isWorkInProgress}: { 
-			heading: string, 
-			bulletPoints: JSX.Element[], 
-			slideshowElementObjs: SlideshowElementObj[],
-			isWorkInProgress: boolean
-		}): JSX.Element {
+function DesignElement({design}: {design: Project}): JSX.Element {
 
+	const {name, bulletPoints, images, isWorkInProgress} = useMemo(() => design, [design]);
 	const isMobileState = useContext(MobileContext);
 
 	let { param } = useParams<{param?: string}>();
-	let slug = SlugHeading(heading);
+	let slug = slugHeading(name);
 	const designRef = React.useRef(null as HTMLDivElement|null);
 
 	React.useEffect(() => {
-        if (!isMobileState && slug === param?.toLowerCase()){
-            designRef.current?.scrollIntoView({ block: 'start'});
+        if (slug === param?.toLowerCase()){
+            designRef.current?.scrollIntoView({ block: 'start', behavior: "smooth"});
         }
-	}, []);
+	}, [param, slug]);
 
 	return isMobileState ? <ProjectElement 
-		heading={heading} 
-		isWorkInProgress={isWorkInProgress}
-		bulletPoints={bulletPoints} 
-		slideshowElementObjs={slideshowElementObjs}
-		url={undefined}
-		github={undefined}
-		tech={undefined}
+		project={design}
 	/> : (
 		<div id={slug} className={'design projectDesign row centerAllStretch'} ref={designRef}>
 			<div className="leftHalf col">
-				<h1 className='paragraphHeading'>{heading}</h1>
+				<ProjectHeading project={design}/>
+				{design.testimony && <TestimonyLink url={getTestimonyUrl(design)} text="Testimony" isTestimony={false}/>}
 				<BulletPointsElement bulletPoints={bulletPoints}/>
 			</div>
 			<div className='rightHalf col centerAll'>
-				<Slideshow slideshowElementObjs={slideshowElementObjs}/>
+				<Slideshow slideshowElementObjs={images}/>
 			</div>
 			{isWorkInProgress ? <WorkInProgressElement/> : null}
 		</div>
 	);
 }
 
-// function to parse a string with tabs and <a/> links.
-// don't have any attributes besides href, including target.
-// automatically adds target="_blank" to <a/>.
-function parseParagraph(str: string): JSX.Element {
-	const linkRegex = /<a href=["'][^<]*["']>[^<]*<\/a>/g;
-	const linkRegexCapture = /<a href=["']([^<]*)["']>([^<]*)<\/a>/g;
-
-	str = noTabNewline(str);
-
-	let jsxList: (JSX.Element | string)[] = [];
-	let withoutLinks: string[] = str.split(linkRegex);
-	let links: (RegExpMatchArray | null) = str.match(linkRegex);
-
-	if (links == null) return <p>{str}</p>;
-
-	for (let i = 0; i < links.length; i++) {
-		linkRegexCapture.lastIndex = 0; // if you want to reuse regex exec
-		let match: (RegExpExecArray | null) = linkRegexCapture.exec(links[i]);
-		if (match == null) throw Error('links should be non-null');
-		let [_, link, text] = match;
-		jsxList.push(withoutLinks[i]);
-		jsxList.push(<a href={link} target={'_blank'} key={link + text}>{text}</a>);
-	}
-	jsxList.push(withoutLinks[withoutLinks.length - 1]); //add the last element in
-	return <p>{jsxList}</p>;
+function TestimonyQuotes({quotes}: {quotes: TestimonyQuote[]}): JSX.Element {
+	return <div className="quotesContainer col centerCross">
+		{quotes.map((quote, i) => <div className="quoteContainer" key={i}>
+			<div className="sentenceContainer">
+				{quote.sentences.map((sentence, j) => <p className="sentence" key={`${i},${j}`}>
+					{sentence}
+				</p>)}
+			</div>
+			<div className="authorContainer">
+				<p className="author">{quote.authorWithTitle}</p>
+			</div>
+		</div>)}
+	</div>
 }
+
+function TestimonyLink({url, text, isTestimony}: {url: string, text: string, isTestimony: boolean}) {
+	return 	<button 
+		className="projectNav row centerCross" 
+		onClick={() => window.location.href=url}
+		title={`Go to ${isTestimony ? "project" : "testimony"}`}
+	>
+		{isTestimony ? Icons.ProjectIcon : Icons.TestimonyIcon} 
+		<p>{text}</p>
+	</button>;
+}
+
+function TestimonyElement({ project }: { project: Project }): JSX.Element {
+
+	let { param } = useParams<{param?: string}>();
+	let slug = slugHeading(project.name);
+	const testimonyRef = React.useRef(null as HTMLDivElement|null);
+
+	React.useEffect(() => {
+        if (slug === param?.toLowerCase()){
+            testimonyRef.current?.scrollIntoView({ block: 'start', behavior: "smooth"});
+        }
+	}, [param, slug]);
+
+	return <div id={slug} className={'design testimony projectDesign col centerAllStretch'} ref={testimonyRef}>
+		<h1 className='paragraphHeading'>{project.name}</h1>
+		<div>
+			<TestimonyLink url={getProjectUrl(project)} text={getProjectIsDesign(project) ? "Design" : "Project"} isTestimony={true}/>
+		</div>
+		<TestimonyQuotes quotes={project.testimony!.quotes}/>
+	</div>
+}
+
 
 const aboutPage = () => <>
 	<Paragraph heading={null} content={<div className="col centerAll">
-			<img id="myFace" alt="photo of Alex Pegg" src={`${mediaUrlPrefix}me.png`}></img>
+			<img id="myFace" alt="Alex Pegg" src={`${mediaUrlPrefix}me.png`}></img>
 			<p style={{textAlign: 'center'}}>
 				Hi, my name is Alex Pegg. Welcome to my website! 
 				Here I have projects and designs I've done that I am especially proud of.
@@ -315,64 +341,43 @@ const aboutPage = () => <>
 	/>
 
 	<Paragraph heading={"Resume"} content={
-		<div id={SlugHeading('resume')} className="col centerAll">
-			<img id="myResume" alt="image of my resume" src={`${mediaUrlPrefix}resumeBasicSmall.png`}></img>
+		<div id={slugHeading('resume')} className="col centerAll">
+			<img id="myResume" alt="my resume" src={`${mediaUrlPrefix}resumeBasicSmall.png`}></img>
 			<p style={{textAlign: 'center'}}>
-				This is my resume (<a href={`${mediaUrlPrefix}alexPeggResume2021.pdf`} rel="noopener" target="_blank">parsable pdf version</a>). 
+				This is my resume (<a href={`${mediaUrlPrefix}alexPeggResume2021.pdf`} rel="noopener noreferrer" target="_blank">parsable pdf version</a>). 
 				It has my contact information at the top if you would like to get in touch.
 			</p>
 		</div>
 	} />
 </>
 
+const testimoniesPage = () => <>
+	{Projects.map(proj => proj.testimony ? 
+		<TestimonyElement project={proj} key={proj.name}/> : null
+	)}
+</>
+
 const projectPage = () => <>
 	{Projects.map((proj) => 
 		<ProjectElement 
-			heading={proj.name} 
-			isWorkInProgress={proj.isWorkInProgress}
-			bulletPoints={proj.bulletPoints} 
-			slideshowElementObjs={proj.images}
-			url={proj.url}
-			github={proj.github}
-			tech={proj.tech}
-			key={JSON.stringify(proj)}
+			project={proj}
+			key={proj.name}
 		/>
 	)}
 </>
 
 const designPage = () => <>
-	{Designs.map((proj) => 
+	{Designs.map((design) => 
 		<DesignElement 
-			heading={proj.name} 
-			isWorkInProgress={proj.isWorkInProgress}
-			bulletPoints={proj.bulletPoints} 
-			slideshowElementObjs={proj.images}
-			key={JSON.stringify(proj)}
+			design={design}
+			key={design.name}
 		/>
 	)}
 </>
 
-const contactPage: JSX.Element = <>
-	<Paragraph heading={"Email"} content={<p>
-		<a href='mailto:alex.pegg@mail.utoronto.ca'>alex.pegg@mail.utoronto.ca</a>
-	</p>} />
-
-	<Paragraph heading={"LinkedIn"} content={<p>
-		<a href='https://www.linkedin.com/in/alexvilapegg/' target="_blank">
-			AlexVilaPegg
-    </a>
-	</p>} />
-
-	<Paragraph heading={"GitHub"} content={<p>
-		<a href='https://github.com/peggalex' target="_blank">
-			peggalex
-    </a>
-	</p>} />
-</>
-
 function MyFooter(): JSX.Element {
 	return <footer className="row centerAll">
-		<p>Copyright © <a href="https://www.linkedin.com/in/alexvilapegg/" target="_blank">Alex Pegg</a> • All Rights Reserved</p>
+		<p>Copyright © <a href="https://www.linkedin.com/in/alexvilapegg/" rel="noopener noreferrer" target="_blank">Alex Pegg</a> • All Rights Reserved</p>
 	</footer>
 }
 
@@ -391,9 +396,10 @@ function getRandomTheme(): Theme {
 }
 
 const Tabs: { [tabName: string]: () => JSX.Element} = {
-	'about': aboutPage,
-	'projects': projectPage,
-	'designs': designPage
+	[RouteSubdomains.ABOUT]: aboutPage,
+	[RouteSubdomains.PROJECTS]: projectPage,
+	[RouteSubdomains.TESTIMONIES]: testimoniesPage,
+	[RouteSubdomains.DESIGNS]: designPage
 };
 
 function App({ initialTab }: { initialTab: string }): JSX.Element {
@@ -415,7 +421,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 
 	return <MobileContext.Provider value={isMobileState}>
 		<Router basename={process.env.PUBLIC_URL}>
-			<div className="col centerAll fullWidth">
+			<div className="col centerCross fullWidth">
 
 				<header className='fullWidth col centerCross'>
 					<div id='themeButtonsContainer'>
@@ -443,7 +449,7 @@ function App({ initialTab }: { initialTab: string }): JSX.Element {
 						{Object.keys(Tabs).map(
 							tabName => <Route path={`/${pageSubDirectory}/${tabName}/:param?`} component={Tabs[tabName]} key={tabName}/>
 						)}
-						<Route exact path={["/homepage", "/"]} component={aboutPage}/>
+						<Route exact path={[`/${pageSubDirectory}`, "/"]} component={aboutPage}/>
 					</Switch>
 				</section>
 				<MyFooter/>

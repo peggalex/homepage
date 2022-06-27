@@ -3,10 +3,10 @@
   width: 100%;
 }
 
-.slideshowElement > img, .slideshowElement > video {
+.slideshowElement img, .slideshowElement video {
     object-fit: contain;
     overflow: hidden;
-    box-shadow: 0 1px 10px 1px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 10px 1px rgba(51,65,85,0.2);
     position: relative;
   }
 
@@ -18,15 +18,20 @@
     max-width: 100px;
     max-height: 100px;
   }
-  
-  .slideshowDisplay {
-    margin: 0 0.75rem;
+
+  .slideshowDisplay > * {
+    border-radius: 10px;
+  }
+
+  .innerSlideshowPreview  > * {
+    border-radius: 5px;
   }
 
   .slideshowDisplay img, .slideshowDisplay video {
     max-width: min(300px, 100%);
     max-height: min(200px, 35vh);
     object-fit: contain;
+    min-height: 100px;
   }
 
   .design .slideshowDisplay img, .design .slideshowDisplay video {
@@ -51,6 +56,10 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+  }
+
+  body.fullscreen, body.fullscreen * {
+    overflow: hidden;
   }
   
   #fullscreenContainer:hover{
@@ -104,35 +113,54 @@
   }
   
   .slideshowNodes {
-    margin: 0.5rem 0;
+    margin: 0.75rem 0;
   }
 
   .slideshow .chevronLeft, .slideshow .chevronRight {
     height: 4rem;
-    margin: 0 0.75rem;
+    margin: 0;
     color: var(--buttonSelectedColour);
+  }
+
+  .arrows > svg, .innerSlideshowPreview {
+    border-radius:5px;
+  }
+  .arrows:hover > svg, .innerSlideshowPreview:hover, .slideshowNode:hover, .slideshowDisplay > *:hover {
+    outline: solid var(--blue);
+  }
+
+  .slideshow .chevronLeft {
+    margin-right: 0.75rem;
+  }
+
+  .slideshow .chevronRight {
+    margin-left: 0.75rem;
   }
 
   .slideshowCaption {
     text-align: center;
     max-width: min(90%, 30rem);
     margin-top: 1rem;
-    font-size: 13px;
+    font-size: 0.8rem;
     font-style: italic;
     color: var(--gray700);
-    font-variation-settings: 'wght' 300;
+    font-variation-settings: 'wght' 400;
   }
+
+  .notArrows {
+    justify-content: space-around;
+  } 
 
   @media only screen and (max-width: 600px) {
     .slideshow .chevronLeft, .slideshow .chevronRight {
-      height: 2.5rem;
+      height: 3rem;
     }
 
-    .slideshow .chevronLeft {
+    /*.slideshow .chevronLeft {
       margin: 0 0 0 0.5rem;
     }
 
     .slideshow .chevronRight {
       margin: 0 0.5rem 0 0;
-    }
+    }*/
   }

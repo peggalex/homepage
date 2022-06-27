@@ -42,6 +42,11 @@ class PythonSubType extends BackEndTechSubType {}
 		<></>
 	);
 
+	export const SeleniumSubType = new PythonSubType(
+		"Selenium",
+		<img style={{opacity: 0.75}} src={`${mediaUrlPrefix}selenium-icon.jpg`}></img>
+	);
+
 export class PythonTech extends BackEndTechType<PythonSubType>{
 	name = "Python";
 	icon = Icons.Python;
@@ -55,8 +60,13 @@ class NodeSubType extends BackEndTechSubType {}
 	);
 
 	export const WebSocketSubType = new NodeSubType(
-		"WebSocket",
+		"WebSockets",
 		<img src={`${mediaUrlPrefix}wsIcon.png`}></img>
+	)
+
+	export const NextSubType = new NodeSubType(
+		"Next.js",
+		<img style={{ opacity: 0.75 }} src={`${mediaUrlPrefix}nextjsIcon.png`}></img>
 	)
 
 export class NodeTech extends BackEndTechType<NodeSubType>{

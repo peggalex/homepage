@@ -1,17 +1,28 @@
 import React from 'react';
 
-import { FrontEndTechType, FrontEndTechSubType, WebTech, ReactSubType, FrontEndTechStack, TypeScriptSubType } from './FrontEndTech';
-import { BackEndTechType, BackEndTechSubType, ExpressSubType, WebSocketSubType, NodeTech, SympySubType, PythonTech, FlaskSubType, NumpySubType, SklearnSubType, BackEndTechStack, BS4 as BeautifulSoup } from './BackEndTech';
-import { DatabaseTechType, DatabaseTechSubType, Sqlite3Tech, DatabaseTechStack, Neo4jTech } from './DatabaseTech';
+import { WebTech, ReactSubType, FrontEndTechStack, TypeScriptSubType } from './FrontEndTech';
+import { ExpressSubType, WebSocketSubType, NodeTech, SympySubType, PythonTech, FlaskSubType, NumpySubType, SklearnSubType, BackEndTechStack, BS4 as BeautifulSoup, SeleniumSubType, NextSubType } from './BackEndTech';
+import { Sqlite3Tech, DatabaseTechStack, Neo4jTech, MongoDBTech } from './DatabaseTech';
 import { SlideshowElementObj } from '../slideshow/slideshow';
 import { TechStack, SuperTechType, TechType } from './TechUtilities';
 import { noTabs } from '../Utilities';
-import { OtherTechType, OtherTechSubType, OtherTechStack, AzureTech, CloudComputingSubType } from './OtherTech';
+import {  OtherTechStack, AzureTech, CloudComputingSubType } from './OtherTech';
 
-interface Project {
+export interface TestimonyQuote {
+    sentences: string[];
+    authorWithTitle: string;
+}
+
+export interface Testimony {
+    quotes: TestimonyQuote[];
+}
+
+export interface Project {
 	name: string,
+	date: Date,
 	url?: string,
 	github?: string,
+	testimony?: Testimony,
 	isWorkInProgress: boolean,
 	images: SlideshowElementObj[],
 	bulletPoints: JSX.Element[],
@@ -20,6 +31,7 @@ interface Project {
 
 export const WhisperProj: Project = {
 	name: "Whisper",
+	date: new Date(2020, 4),
 	url: "https://alexpegg.com/whisper",
 	github: "https://github.com/peggalex/whisper",
 	isWorkInProgress: false,
@@ -72,8 +84,16 @@ export const WhisperProj: Project = {
 
 export const MicrographerProj: Project = {
 	name: "Micrographer",
+	date: new Date(2018, 11),
 	url: "https://alexpegg.com/micrographer",
+	github: "https://github.com/peggalex/micrographer",
 	isWorkInProgress: false,
+	testimony: {
+        quotes: [{
+            sentences: ["I can't thank you enough! This is amazing, I've been able to check so many answers without wasting time asking the TA's and classmates."],
+            authorWithTitle: 'Daniel Rebello, ECO200 Student',
+        }]
+    },
 	images: [
 		{
 			src: './micrographerBasic.png',
@@ -135,7 +155,9 @@ export const MicrographerProj: Project = {
 
 export const TwentyFortyEightProj: Project = {
 	name: "2048 Game",
+	date: new Date(2019, 7),
 	url: "https://peggalex.github.io/test2048",
+	github: "https://github.com/peggalex/peggalex.github.io/blob/master/test2048.html",
 	isWorkInProgress: false,
 	images: [
 		{
@@ -169,7 +191,9 @@ export const TwentyFortyEightProj: Project = {
 
 export const SimpleGradeCalculatorProj: Project = {
 	name: "Simple grade calculator",
+	date: new Date(2019, 9),
 	url: "https://peggalex.github.io/rachel.html",
+	github: "https://github.com/peggalex/peggalex.github.io/blob/master/resume3.html",
 	isWorkInProgress: false,
 	images: [
 		{
@@ -203,6 +227,7 @@ export const SimpleGradeCalculatorProj: Project = {
 
 export const CompetitionProj: Project = {
 	name: "Scotiabank Big Data AI Competition",
+	date: new Date(2020, 3),
 	url: "https://peggalex.github.io/BigDataCompPPT_Incorgnito.pdf",
 	isWorkInProgress: false,
 	images: [
@@ -281,6 +306,7 @@ export const CompetitionProj: Project = {
 
 export const Fortnite2DProj: Project = {
 	name: "Fortnite 2D",
+	date: new Date(2020, 3),
 	url: "https://alexpegg.com/ftd",
 	isWorkInProgress: true,
 	images: [
@@ -321,6 +347,7 @@ export const Fortnite2DProj: Project = {
 
 export const PathfinderProj: Project = {
 	name: "Pathfinder",
+	date: new Date(2019, 10),
 	url: "https://peggalex.github.io/pathfinder",
 	github: "https://github.com/peggalex/pathfinder",
 	isWorkInProgress: true,
@@ -378,6 +405,7 @@ export const PathfinderProj: Project = {
 
 export const FindingNameoProj: Project = {
 	name: "Finding Nameo",
+	date: new Date(2020, 6),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: true,
@@ -390,7 +418,7 @@ export const FindingNameoProj: Project = {
 		{
 			src: './findingNameoDemo.mp4',
 			isVideo: true,
-			caption: 'This is the computer UI. I designed the UI elements so that they would work well on landscape computer resolutions, as well as mobile displays.'
+			caption: 'This is the desktop UI. I designed the UI elements so that they would work well on landscape desktop resolutions, as well as mobile displays.'
 		},
 		{
 			src: './findingNameoDemoMobile.mp4',
@@ -418,8 +446,8 @@ export const FindingNameoProj: Project = {
 	tech: [
 		new FrontEndTechStack(
 			new WebTech([
-				TypeScriptSubType,
-				ReactSubType
+				ReactSubType,
+				TypeScriptSubType
 			])
 		),
 		new BackEndTechStack(
@@ -436,6 +464,7 @@ export const FindingNameoProj: Project = {
 
 export const TurtleArtProj: Project = {
 	name: "Turtle Art",
+	date: new Date(2018, 10),
 	github: "https://github.com/peggalex/turtleArt",
 	isWorkInProgress: false,
 	images: [
@@ -478,11 +507,27 @@ export const TurtleArtProj: Project = {
 };
 
 
-export const RCHKChampionships: Project = {
+export const RCHKChampionshipsProj: Project = {
 	name: "RCHK Championships",
+	date: new Date(2021, 6),
 	url: "https://alexpegg.com/rchkChampionships",
 	github: "https://github.com/peggalex/rchkChampionships",
 	isWorkInProgress: false,
+    testimony: {
+        quotes: [
+            {
+            sentences: ["App was super useful for comparing stats between a tight group friends. Other match history websites don’t have this focus on comparing stats amongst a specific group of people. The interface was also super clean and easy to navigate. The developer added more details and stats over time such as multi kill medals, keeping the website fresh and fun. "],
+            authorWithTitle: 'Lawrence Ge (user “lolly”)',
+            },
+            {
+                sentences: [
+                    "I think the app was very well made. It had a lot of useful stats listed and it was easy to navigate around and it allowed us to easily compare statistics which was really fun to do. I can't even nitpick anything out because (from my point of view) it has catered to all of our needs when it comes to using the app.",
+                    "Whatever we asked for, the developer delivered. I was hesitant to ask for something more but whenever I did it was added to the site really quickly. I personally think the biggest strength of this app was not that it had everything, but it is the fact that it was really easy to navigate."
+                ],
+                authorWithTitle: 'Marcus Tam (user “bert”)',
+            }
+        ]
+    },
 	images: [
 		{
 			src: './rchkChampionshipsBasic.png',
@@ -529,8 +574,8 @@ export const RCHKChampionships: Project = {
 	tech: [
 		new FrontEndTechStack(
 			new WebTech([
-				TypeScriptSubType,
-				ReactSubType
+				ReactSubType,
+				TypeScriptSubType
 			])
 		),
 		new BackEndTechStack(
@@ -545,8 +590,215 @@ export const RCHKChampionships: Project = {
 	]
 };
 
+
+export const InterviewSchedulerProj: Project = {
+	name: "Interview Scheduler",
+	date: new Date(2021, 7),
+	github: "https://github.com/peggalex/interviewScheduler",
+	isWorkInProgress: false,
+	testimony: {
+        quotes: [
+            {
+            sentences: [
+				"Alex helped us in creating a scheduling tool that incorporates many complex scenarios. Everything we asked for was incorporated in the tool capable of generating an output in little to no time! A task that used to take us hours now can be done in a few minutes which significantly improved our process and made our lifes easier.",
+				"With no doubt, we will continue using the tool in the future for our annual conference and can’t thank Alex enough for his help! I was really impressed with his skills and his capabilities in turning around this project in such a short time!"
+			],
+            authorWithTitle: 'Nikhil Kakadiya, ASNA President 2022',
+            },
+            {
+                sentences: [
+					"I collaborated with Alex in the creation of a scheduling tool for interviews for our Actuarial Annual Conference. It has been multiple years that we look for a reliable tool capable of incorporating every little detail and scenario we may need to account for while schedule this session.",
+					"We have over 30 concurrent sessions and import the data of over 700 participants so creating a scenario that works for all stakeholders is incredibly difficult.",
+					"Alex was able to listen to our needs and create a tailored product that incorporated every element we need. On the day of the event, the tool worked amazingly, and the output took only a few seconds to generate!",
+					"We will definitely leverage the tool in the future for our next conferences as it perfectly served our need."
+                ],
+                authorWithTitle: 'Amine Arous, ASNA Convention Chair 2022',
+            }
+        ]
+    },
+	images: [
+		{
+			src: './interviewSchedulerBasic.PNG',
+			isVideo: false,
+			caption: 'This is the UI (which I really like). I tried to use the same stylings as League of Legends, without using any of their trademarks.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayers.mp4',
+			isVideo: true,
+			caption: 'This is the player screen. It shows k/d/a, cs per minute and a breakdown of the champions played. I have to use a riot endpoint to get profile pictures.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayersSort.mp4',
+			isVideo: true,
+			caption: 'You can sort the players by different attributes, ascending or descending. Theres also a search, and you can click on a champion to see the matches played.'
+		},
+		{
+			src: './rchkChampionshipsDemoMatches.mp4',
+			isVideo: true,
+			caption: "These are the matches. I could complicate the UI by showing all the data, but the true match history does all that already (the button on the right). The only draw back is that the player names are blanked."
+		},		
+		{
+			src: './rchkChampionshipsDemoMatchesFilter.mp4',
+			isVideo: true,
+			caption: 'You can filter by player, and then by champion. There\'s a lot of state to store here, so I used a react reducer. You can click on a player to go to their overall stats.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadFile.mp4',
+			isVideo: true,
+			caption: 'This is how I get over the fact that you can\'t get private data via public API. If they just log in and save the html, I can parse it. I\'ve tested different html formats in firefox, chrome (mac and windows) and safari.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadHTML.mp4',
+			isVideo: true,
+			caption: 'Instead of uploading the html file, you can simply inspect element and copy the html. This is faster because there\'s no download and we don\'t send images, but is a bit more technical.'
+		}
+	],
+	bulletPoints: [
+		<>Program for displaying statistics for League of Legends matches.</>,
+		<>Me and my friends played private 5v5 custom matches in LoL.</>,
+		<>This is not accessable by public APIs, so someone made a manual spreadsheet to show stats.</>,
+		<>To automate this, I created a web app that instead parses .html and does some webscraping</>,
+	],
+	tech: [
+		new FrontEndTechStack(
+			new WebTech([
+				ReactSubType,
+				TypeScriptSubType
+			])
+		),
+		new BackEndTechStack(
+			new PythonTech([FlaskSubType])
+		),
+		new DatabaseTechStack(
+			new Sqlite3Tech([])
+		)
+	]
+};
+
+
+export const WordleBotProj: Project = {
+	name: "Wordle Bot",
+	date: new Date(2021, 7),
+	github: "https://github.com/peggalex/wordleBot",
+	isWorkInProgress: false,
+	images: [
+		{
+			src: './interviewSchedulerBasic.PNG',
+			isVideo: false,
+			caption: 'This is the UI (which I really like). I tried to use the same stylings as League of Legends, without using any of their trademarks.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayers.mp4',
+			isVideo: true,
+			caption: 'This is the player screen. It shows k/d/a, cs per minute and a breakdown of the champions played. I have to use a riot endpoint to get profile pictures.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayersSort.mp4',
+			isVideo: true,
+			caption: 'You can sort the players by different attributes, ascending or descending. Theres also a search, and you can click on a champion to see the matches played.'
+		},
+		{
+			src: './rchkChampionshipsDemoMatches.mp4',
+			isVideo: true,
+			caption: "These are the matches. I could complicate the UI by showing all the data, but the true match history does all that already (the button on the right). The only draw back is that the player names are blanked."
+		},		
+		{
+			src: './rchkChampionshipsDemoMatchesFilter.mp4',
+			isVideo: true,
+			caption: 'You can filter by player, and then by champion. There\'s a lot of state to store here, so I used a react reducer. You can click on a player to go to their overall stats.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadFile.mp4',
+			isVideo: true,
+			caption: 'This is how I get over the fact that you can\'t get private data via public API. If they just log in and save the html, I can parse it. I\'ve tested different html formats in firefox, chrome (mac and windows) and safari.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadHTML.mp4',
+			isVideo: true,
+			caption: 'Instead of uploading the html file, you can simply inspect element and copy the html. This is faster because there\'s no download and we don\'t send images, but is a bit more technical.'
+		}
+	],
+	bulletPoints: [
+		<>Script for trying to solve wordles.</>,
+		<>100% winrate, 3.71 average guesses.</>,
+		<>Use selenium to run the day's wordle.</>,
+		<>Faster solutions online, but this is 100% my own.</>,
+	],
+	tech: [
+		new BackEndTechStack(
+			new PythonTech([SeleniumSubType])
+		),
+	]
+};
+
+
+export const MeetingPlanner: Project = {
+	name: "Meeting Planner",
+	date: new Date(2021, 7),
+	github: "https://github.com/peggalex/interviewScheduler",
+	url: "https://alexpegg.com/todo",
+	isWorkInProgress: false,
+	images: [
+		{
+			src: './interviewSchedulerBasic.PNG',
+			isVideo: false,
+			caption: 'This is the UI (which I really like). I tried to use the same stylings as League of Legends, without using any of their trademarks.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayers.mp4',
+			isVideo: true,
+			caption: 'This is the player screen. It shows k/d/a, cs per minute and a breakdown of the champions played. I have to use a riot endpoint to get profile pictures.'
+		},
+		{
+			src: './rchkChampionshipsDemoPlayersSort.mp4',
+			isVideo: true,
+			caption: 'You can sort the players by different attributes, ascending or descending. Theres also a search, and you can click on a champion to see the matches played.'
+		},
+		{
+			src: './rchkChampionshipsDemoMatches.mp4',
+			isVideo: true,
+			caption: "These are the matches. I could complicate the UI by showing all the data, but the true match history does all that already (the button on the right). The only draw back is that the player names are blanked."
+		},		
+		{
+			src: './rchkChampionshipsDemoMatchesFilter.mp4',
+			isVideo: true,
+			caption: 'You can filter by player, and then by champion. There\'s a lot of state to store here, so I used a react reducer. You can click on a player to go to their overall stats.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadFile.mp4',
+			isVideo: true,
+			caption: 'This is how I get over the fact that you can\'t get private data via public API. If they just log in and save the html, I can parse it. I\'ve tested different html formats in firefox, chrome (mac and windows) and safari.'
+		},
+		{
+			src: './rchkChampionshipsDemoUploadHTML.mp4',
+			isVideo: true,
+			caption: 'Instead of uploading the html file, you can simply inspect element and copy the html. This is faster because there\'s no download and we don\'t send images, but is a bit more technical.'
+		}
+	],
+	bulletPoints: [
+		<>App for collaboratively planning meetings.</>,
+		<>Create times that users can indicate if available.</>,
+		<>Inspired by <a href="https://www.when2meet.com/">when2meet</a>, which lacks design</>,
+		<>Loved trying next.js, although SPA is a poor choice.</>,
+	],
+	tech: [
+		new FrontEndTechStack(
+			new WebTech([ReactSubType, TypeScriptSubType])
+		),
+		new BackEndTechStack(
+			new NodeTech([NextSubType, TypeScriptSubType])
+		),
+		new DatabaseTechStack(
+			new MongoDBTech([])
+		)
+	]
+};
+
 export const Projects: Project[] = [
-	RCHKChampionships,
+	MeetingPlanner,
+	WordleBotProj,
+	InterviewSchedulerProj,
+	RCHKChampionshipsProj,
 	FindingNameoProj,
 	WhisperProj,
 	MicrographerProj,
@@ -556,10 +808,11 @@ export const Projects: Project[] = [
 	PathfinderProj,
 	SimpleGradeCalculatorProj,
 	TurtleArtProj
-];
+].sort((a, b) => - (a.date.getTime() - b.date.getTime()));
 
 export const HongKongDesign: Project = {
 	name: "Hong Kong Skyline",
+	date: new Date(2019, 9),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: true,
@@ -595,6 +848,7 @@ export const HongKongDesign: Project = {
 
 export const ByteDesign: Project = {
 	name: "Byte",
+	date: new Date(2020, 6),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: false,
@@ -620,6 +874,7 @@ export const ByteDesign: Project = {
 
 export const MactanGardensDesign: Project = {
 	name: "Mactan Gardens",
+	date: new Date(2020, 5),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: true,
@@ -664,6 +919,7 @@ export const MactanGardensDesign: Project = {
 
 export const TheMediumDesign: Project = {
 	name: "The Medium",
+	date: new Date(2020, 5),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: false,
@@ -734,6 +990,7 @@ export const TheMediumDesign: Project = {
 
 export const ResumeDesign: Project = {
 	name: "Resume",
+	date: new Date(2020, 7), //estimate
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: false,
@@ -759,6 +1016,7 @@ export const ResumeDesign: Project = {
 
 export const FindingNameoDesign: Project = {
 	name: "Finding Nameo",
+	date: new Date(2020, 5),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: false,
@@ -799,6 +1057,7 @@ export const FindingNameoDesign: Project = {
 
 export const ResumeDesignDesign: Project = {
 	name: "Resume Design",
+	date: new Date(2019, 10),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: false,
@@ -830,6 +1089,7 @@ export const ResumeDesignDesign: Project = {
 
 export const HomepageDesign: Project = {
 	name: "Homepage",
+	date: new Date(2020, 9),
 	url: "https://alexpegg.com/findingNameo",
 	github: "https://github.com/peggalex/findingNameo",
 	isWorkInProgress: true,

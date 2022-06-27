@@ -8,13 +8,21 @@
 }
 
 @font-face {
-  font-family: 'Zilla Slab';
-  src: url('fonts/Zilla_Slab/ZillaSlab-Light.ttf') format('truetype');
+  font-family: 'Quicksand';
+  src: url('./fonts/Quicksand/Quicksand-VariableFont_wght.ttf') format('truetype');
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Merriweather';
-  src: url('fonts/Merriweather/Merriweather-Regular.ttf') format('truetype');
+  font-family: 'Inter';
+  src: url('./fonts/Inter/Inter-VariableFont_slnt_wght.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilda Display';
+  font-display: swap;
+  src: url('./fonts/Gilda_Display/GildaDisplay-Regular.ttf');
 }
 
 body {
@@ -23,11 +31,11 @@ body {
 }
 
 body, body * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   /*font-family: 'Zilla Slab', serif;*/
   font-variation-settings: 'wght' 400;
-  transition: color 1s, fill 1s, opacity 1s;
+  transition: color 0.5s, fill 1s, opacity 1s, outline-color 0.5s;
+  outline: solid rgba(255,255,255,0);
 }
 
 h1 {
@@ -35,7 +43,7 @@ h1 {
   /*font-family: 'Zilla Slab', serif;*/
   font-size: 1.75rem;
   font-family: "quicksand";
-  font-variation-settings: 'wght' 450;
+  font-variation-settings: 'wght' 500;
 }
 
 html {
@@ -83,12 +91,12 @@ html {
   white-space: pre-line;
 }
 
-button {
-  outline: none;
-}
-
 .clickable:hover, button:hover{
   cursor: pointer;
+}
+
+#root > div {
+  min-height: 100vh;
 }
 
 #mainContent{
@@ -100,28 +108,47 @@ button {
   width: var(--paragraphWidth);
 }
 
-#tabButtons{
-  height: 4rem;
+#tabButtons {
   /*background-color: aquamarine;*/
   background-color: transparent;
 }
 
-#tabButtons button{
+#tabButtons button {
   /*background-color: aquamarine;*/
   transition: background-color 1s;
-  background-color: var(--backgroundColour);
+  background-color: rgba(0,0,0,0.1);
   font-size: 1.5rem;
   color: white;
-  border-radius: 0.5rem;
-  margin: 0.5rem 0.25rem;
-  height: 3rem;
-  border: solid thin white;
-  font-variation-settings: 'wght' 400;
+  padding: 0.75rem;
+  /*border: solid thin white;*/
+  border: none;
+  background-color: white;
+  color: var(--grey600);
+  width: 9.5rem;
+  font-variation-settings: 'wght' 500;
+}
+
+#tabButtons a:not(:first-child) button{
+  border-left: solid thin var(--grey200);
+}
+
+#tabButtons {
+  margin-top: 1.5rem;
+  --cornerRadius: 0.5rem;
+}
+
+#tabButtons > a:first-child > button {
+  border-radius: var(--cornerRadius) 0 0 var(--cornerRadius);
+}
+
+#tabButtons > a:last-child > button {
+  border-radius: 0 var(--cornerRadius) var(--cornerRadius) 0;
 }
 
 #tabButtons button:hover, #tabButtons button.selected{
   /*background-color: lightseagreen;*/
   background-color: var(--buttonSelectedColour);
+  color: white;
 }
 
 #myFace {
@@ -135,6 +162,7 @@ button {
 }
 
 #myResume {
+  margin-top: 1rem;
   max-height: 70vh;
   max-width: 95%;
   box-shadow: 0 0 0.5rem -0.2rem #000;
@@ -155,7 +183,7 @@ button {
   background-color: var(--paragraphColour);
   border-radius: 1rem;
   /*scroll-snap-align: center;*/
-  box-shadow: 0 0 0.5rem -0.2rem #000;
+  box-shadow: 0 0 0.5rem -0.2rem var(--grey700);
   width: min(90%, 800px);
 }
 
@@ -163,9 +191,13 @@ button {
   margin-bottom: 1.5rem;
 }
 
+.project .upperHalf {
+  padding: 1.5rem;
+  padding-top: 1rem;
+}
+
 .project .bottomHalf {
   width: 100%;
-  margin-top: 1.5rem;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 0 0 1rem 1rem;
@@ -173,7 +205,7 @@ button {
 }
 
 .bottomHalf .bottomHalfContent {
-  padding: 0.5rem 1.5rem 0 1.5rem;
+  padding: 1.5rem;
 }
 
 .bottomHalf .bottomHalfContent > * {
@@ -201,13 +233,14 @@ button {
 }
 
 .bottomHalfButtons > .notSelected {
+  color: var(--grey700);
   background-color: var(--grey200);
 }
 
 .bottomHalfButtons > .selected {
-  color: var(--buttonSelectedColour);
+  color: var(--headingColour);
   background-color: var(--grey300);
-  border-bottom: solid thick var(--buttonSelectedColour);
+  border-bottom: solid thick var(--headingColour);
 }
 
 .bottomHalfContent .techStack {
@@ -217,15 +250,16 @@ button {
 .paragraph{
   position: relative;
   margin-top: 1.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
+  padding-top: 1rem;
   background-color: var(--paragraphColour);
   border-radius: 1rem;
   /*scroll-snap-align: center;*/
   box-shadow: 0 0 0.5rem -0.2rem #000;
 }
 
-.paragraphContent {
-  margin-bottom: 0.5rem;
+.projectDesign .paragraphContent > div {
+  margin-bottom: 1.5rem;
 }
 /*
 .project:hover, .paragraph:hover{
@@ -260,12 +294,15 @@ button {
 }
 
 .paragraph h1, .project h1, .design h1{
-  margin-top: 0;
+  margin: 0;
   /*text-align: center;*/
-  margin-bottom: 0.5rem;
   /*color: royalblue;*/
   color: var(--headingColour);
   /*color: var(--backgroundColour);*/
+}
+
+.design .paragraphHeading {
+  margin-bottom: 0.75rem;
 }
 
 /*.project h1 {
@@ -280,8 +317,8 @@ button {
 
 .project .paragraphHeading{
   align-self: flex-start;
-  margin-left: 2rem;
-  margin-top: 1rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .paragraphContent .arrowRight {
@@ -290,19 +327,15 @@ button {
   max-width: 1rem;
   min-width: 1rem;
   margin-top: 0.15rem;
-  margin-right: 0.5rem;
-}
-
-.paragraphContent div:first-child {
-  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 .paragraphContent p {
   font-size: 14px;
-  margin: 0 0rem 1.35rem 0;
   line-height: 1.5;
   color: var(--gray800);
   font-variation-settings: 'wght' 400;
+  margin: 0;
 }
 
 /*
@@ -313,21 +346,30 @@ button {
 
 .url {
   text-align: center;
-  height: 1.5rem;
-  width: 95%;
+  height: 2rem;
+  width: 100%;
   position: relative;
   padding: 0.1rem;
   border-radius: 1.5rem;
   background-color: var(--gray200);
   color: var(--gray800);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 0.85rem;
   overflow: hidden;
-  margin-left: 0.15rem;
   /*box-shadow: inset 0 0 0.2rem 0.01rem var(--grey400);*/
+  /*box-shadow: inset 0 1px 10px 1px rgb(51 65 85 / 10%);*/
+  animation: shine 2s linear infinite;
+}
+
+@keyframes shine {
+  0% { background-color: var(--gray200); }
+  50% { background-color: var(--gray200); }
+  75% { background-color: var(--gray100); }
+  100% { background-color: var(--gray200); }
 }
 
 .url > span {
+  margin-left: 0.25rem;
   flex-grow: 1;
   text-align: start;
   overflow: hidden;
@@ -336,18 +378,34 @@ button {
   text-overflow: ellipsis;
 }
 
+.url:hover {
+  /*background-color: var(--grey100);*/
+}
+
+.url:hover > span {
+  text-decoration: underline;
+  color: var(--blue);
+}
+
 .url svg {
-  color: var(--grey700);
-  height: 1rem;
+  color: var(--grey500);
+  height: 1.4rem;
 }
+
+.url:hover > svg * {
+  color: var(--blue400);
+}
+
+.url svg.globe {
+  margin-left: 0.35rem;
+}
+
 .url svg.link {
+  margin-right: 0.35rem;
 }
 
-.url svg.search {
-}
-
-.techStack {
-  margin: 1rem;
+.techStack:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .techStackTitle {
@@ -376,12 +434,11 @@ button {
 }
 
 .superTechTypeName > p{
-  font-weight: 600;
   font-variation-settings: 'wght' 600;
 }
 
 .subType p {
-  font-variation-settings: 'wght' 300;
+  font-variation-settings: 'wght' 400;
 }
 
 .superTechType svg, .superTechType img {
@@ -407,7 +464,7 @@ button {
 }
 
 .superTechType p {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   margin-right: 0.25rem;
   margin-left: 0.2rem;
 }
@@ -440,20 +497,45 @@ button {
 
 .workInProgress p {
   color: white;
-  font-variation-settings: 'wght' 650;
+  font-variation-settings: 'wght' 500;
 }
 
 .githubContainer {
-  opacity: 0.15;
   position: absolute;
   z-index: var(--zIndexGithub);
   top: 0.5rem;
   right: 0.5rem;
+  animation: iconBob 0.75s ease-in-out alternate infinite;
+}
+
+.githubContainer:hover svg > *{
+  fill: var(--blue);
+}
+
+@keyframes iconBob {
+  0% { transform: scale(1); }
+  100% { transform: scale(0.9); }
+}
+
+.url svg.globe {
+  --shimmyRotation: 7.5deg;
+  animation: shimmy 1.5s linear infinite;
+}
+
+@keyframes shimmy {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(0deg); }
+  60% { transform: rotate(var(--shimmyRotation)); }
+  70% { transform: rotate(calc(-1 * var(--shimmyRotation))); }
+  80% { transform: rotate(var(--shimmyRotation)); }
+  90% { transform: rotate(calc(-1 * var(--shimmyRotation))); }
+  100% { transform: rotate(0); }
 }
 
 .githubContainer svg{
   height: 2.5rem;
   width: 2.5rem;
+  fill: var(--buttonSelectedColour);
 }
 
 .design:first-child{
@@ -476,7 +558,14 @@ button {
 .design .leftHalf {
   /*background-color: var(--grey100);*/
   border-radius: 1rem 0 0 1rem;
-  padding: 1rem;
+}
+
+.design .leftHalf, .design .rightHalf {
+  padding: 1.5rem;
+}
+
+.design .rightHalf {
+  padding-top: 0.5rem;
 }
 
 .design .rightHalf {
@@ -489,9 +578,12 @@ button {
 }
 
 footer {
+  position: sticky;
+  bottom:  0;
   background-color: var(--grey200);
   height: 2rem;
   width: 100%;
+  z-index: 1000;
 }
 
 footer > p {
@@ -500,6 +592,127 @@ footer > p {
   font-size: 0.8rem;
 }
 
+.testimony  {
+  padding: 1.5rem;
+  padding-top: 1rem;
+  box-sizing: border-box; 
+  width: min(90%,800px);
+}
+
+.testimony p {
+  margin: 0;
+}
+
+.testimony .quoteContainer {
+  max-width: 35rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimony .quoteContainer:before {
+  position: absolute;
+  content: '“';
+  font-family: 'Gilda Display', serif;
+  font-size: 15rem;
+  color: var(--grey200);
+  z-index: -1;
+  top: -3.5rem;
+  left: -2.5rem;
+}
+
+.testimony .authorContainer {
+  margin-top: 1.35rem;
+}
+
+.testimony .author {
+  font-weight: bold;
+  font-style: italic;
+  color: var(--grey800);
+}
+
+.testimony .author:before {
+  content: "- ";
+}
+
+.testimony .sentence + .sentence {
+  margin-top: 1rem;
+}
+
+.testimony .quoteContainer {
+  margin: 1.5rem 0;
+}
+
+.testimony .sentence {
+  line-height: 1.75;
+}
+
+.paragraphHeading span{
+  font-size: 1.1rem;
+  color: var(--grey400);
+  /* font-variation-settings: "wght" 500; */
+  font-variation-settings: "wght" 400;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+button.projectLink > svg > *{
+  color: var(--grey500);
+}
+
+button.projectLink {
+  background-color: transparent;
+  border: none;
+  margin-right: 0.2rem;
+}
+
+button.projectLink:hover > svg > * {
+  color: var(--blue500);
+}
+
+.projectNav {
+  border-radius: 100rem;
+  background-color: var(--buttonSelectedColour);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white;
+  border: none;
+}
+
+.projectNav p {
+  margin: 0;
+  margin-right: 0.3rem;
+}
+
+.projectNav svg {
+  margin-right: 0.25rem;
+}
+
+.quotesContainer {
+  margin-top: 1rem;
+}
+
+.url + .projectNav {
+  margin-top: 0.75rem;
+}
+
+.projectNav svg {
+  height: 1.25rem;
+}
+
+.arrows > svg, .innerSlideshowPreview {
+  border-radius:5px;
+}
+
+.githubContainer > svg {
+  border-radius:100%;
+}
+
+.projectNav:hover, .url:hover, .githubContainer:hover > svg {
+  outline: solid var(--blue);
+}
+
+
 @media only screen and (orientation: portrait) {
 	/*:root {
 		--paragraphWidth: 90vw !important;
@@ -507,5 +720,37 @@ footer > p {
 
 	/*html {
 		font-size: 11px;
-	}*/
+	}*/p
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .url {
+    font-size: 0.8rem;
+  }
+
+  .url > span {
+    margin-left: 0.1rem;
+  }
+
+  .url svg {
+    height: 1rem;
+  }
+
+  .projectLink {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 800px) {
+  .testimony .quoteContainer:before {
+    left: -1rem;
+  }  
+
+  #tabButtons button {
+    font-size: 1rem;
+    padding: 0.5rem; 
+    width: 5.5rem
+  }
 }

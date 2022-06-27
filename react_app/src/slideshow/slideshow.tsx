@@ -21,21 +21,21 @@ function SlideshowPreview({slideshowElementObj: {src, isVideo}, clickHandler, is
 
     return (
         <div 
-            className={`slideshowElement slideshowPreview clickable row centerAll spacer ${isLeft ? "left" : "right"}Preview`} 
-            onClick={clickHandler}
-        >
+            className={`slideshowElement slideshowPreview  row centerAll ${isLeft ? "left" : "right"}Preview`} 
+            title={isLeft ? "Previous" : "Next"}
+        ><div className='innerSlideshowPreview clickable' onClick={clickHandler}>
             {isVideo ? 
-                <video key={src} preload="metadata">
+                <video key={src} preload="auto">
                     <source src={`${urlPrefix}${src}#t=0.1`} type="video/mp4"/>
                     {/*<source src={src} type="video/mp4"/>*/}
-                </video> : <img src={`${urlPrefix}${src}`} loading="lazy"/>}
+                </video> : <img alt="" src={`${urlPrefix}${src}`} loading="eager"/>}
             {/*
                 https://stackoverflow.com/questions/7323053/dynamically-using-the-first-frame-as-poster-in-html5-video
                 
                 Because this is a preview, loading the whole video doesn't make sense as the previews can't play.
                 The appended '#t=0.1' will make the video show a frame at t=0.1, instead of loading the whole video.
             */}
-        </div>
+        </div></div>
     )
 }
 
@@ -99,11 +99,16 @@ function addFullscreenImg(src: string): void{
         </div>
     `);
 
-    let closeFullscreen = () => $("#fullscreenContainer")!.remove();
+    let closeFullscreen = () => {
+        $("#fullscreenContainer")!.remove();
+        $("body").removeClass("fullscreen");
+    }
 
     const escKeyCode = 27;
     $('body').one('keydown', (e: any):void => {
-        if (e.keyCode === escKeyCode) closeFullscreen();
+        if (e.keyCode === escKeyCode) {
+            closeFullscreen();
+        }
     });
 
     let button = $(`
@@ -124,12 +129,14 @@ function addFullscreenImg(src: string): void{
 
     fullscreenContainer.append(button);
     $('body').append(fullscreenContainer);
+    $("body").addClass("fullscreen");
 }
 
 function SlideshowNode({index, selectedIndex, setIndex}: 
         {index: number, selectedIndex: number, setIndex: (index: number)=>void}): JSX.Element{
     return  <button 
         className={'slideshowNode' + ((index===selectedIndex) ? ' selected' : '')}
+        title={`Page ${index+1}`}
         onClick={()=>{
             setIndex(index);
         }}
@@ -146,7 +153,7 @@ export function Slideshow({slideshowElementObjs}:
 
     const isMobileState = useContext(MobileContext);
 
-    return (<>
+    return (<div className="col centerCross">
         <div className='slideshowNodes'>
             {slideshowElementObjs.map((_, i: number): JSX.Element => (
                 <SlideshowNode 
@@ -157,41 +164,43 @@ export function Slideshow({slideshowElementObjs}:
                 />
             ))}
         </div>
-        <div className='slideshow row centerAll'>
-            <div className='clickable' onClick={()=>setIndex(shiftIndexLeft(index, length))}>
+        <div className='slideshow row centerCross'>
+            <div className='arrows clickable' title="Previous" onClick={()=>setIndex(shiftIndexLeft(index, length))}>
                 {Icons.ChevronLeft}
             </div>
-            {isMobileState ? null : <>
-                <SlideshowPreview
-                    slideshowElementObj={slideshowElementObjs[shiftIndexLeft(index, length)]}
+            <div className="row spacer notArrows">
+                {isMobileState ? null : <>
+                    <SlideshowPreview
+                        slideshowElementObj={slideshowElementObjs[shiftIndexLeft(index, length)]}
+                        clickHandler={()=>{
+                            setIndex(shiftIndexLeft(index, length));
+                        }}
+                        isLeft={true}
+                    />
+                </>}
+                <SlideshowDisplay
+                    slideshowElementObj={slideshowElementObjs[index]}
                     clickHandler={()=>{
-                        setIndex(shiftIndexLeft(index, length));
+                        var slideshowElementObj = slideshowElementObjs[index];
+                        let src: string = slideshowElementObj.src;
+                        addFullscreenImg(src);
                     }}
-                    isLeft={true}
                 />
-            </>}
-            <SlideshowDisplay
-                slideshowElementObj={slideshowElementObjs[index]}
-                clickHandler={()=>{
-                    var slideshowElementObj = slideshowElementObjs[index];
-                    let src: string = slideshowElementObj.src;
-                    addFullscreenImg(src);
-                }}
-            />
-            {isMobileState ? null : <>
-                <SlideshowPreview
-                    slideshowElementObj={slideshowElementObjs[shiftIndexRight(index, length)]}
-                    clickHandler={()=>{
-                        setIndex(shiftIndexRight(index, length));
-                    }}
-                    isLeft={false}
-                />
-            </>}
-            <div className='clickable' onClick={()=>setIndex(shiftIndexRight(index, length))}>
+                {isMobileState ? null : <>
+                    <SlideshowPreview
+                        slideshowElementObj={slideshowElementObjs[shiftIndexRight(index, length)]}
+                        clickHandler={()=>{
+                            setIndex(shiftIndexRight(index, length));
+                        }}
+                        isLeft={false}
+                    />
+                </>}
+            </div>
+            <div className='arrows clickable' title="Next" onClick={()=>setIndex(shiftIndexRight(index, length))}>
                 {Icons.ChevronRight}
             </div>
         </div>
         <figcaption className='slideshowCaption'>{slideshowElementObjs[index].caption}</figcaption>
-    </>);
+    </div>);
 
 }

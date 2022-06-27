@@ -1,9 +1,9 @@
 
-@font-face {
+/*@font-face {
     font-family: 'Gilda Display';
     font-display: swap;
     src: url('../../fonts/Gilda_Display/GildaDisplay-Regular.ttf');
-}
+}*/
 
 #strAutumn {
     animation: wordFall 1s ease-out 0s;
