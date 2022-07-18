@@ -184,8 +184,8 @@ function ProjectHeading({project}: {project: Project}): JSX.Element {
 	const year = project.date.getFullYear();
 	const dateStr = `${monthStr} ${year}`;
 
-	return <div className="paragraphHeading row centerCross">
-		<button className="projectLink centerAll" title={`Copy link to ${getProjectIsDesign(project) ? "design" : "project"}`} onClick={() => {
+	return <div className="paragraphHeading row">
+		<button className="projectLink row" title={`Copy link to ${getProjectIsDesign(project) ? "design" : "project"}`} onClick={() => {
 			const projUrl = getProjectUrl(project);
 			navigator.clipboard.writeText(projUrl);
 			alert(`Copied url to clipboard: "${projUrl}"`);
@@ -267,6 +267,7 @@ function DesignElement({design}: {design: Project}): JSX.Element {
 function TestimonyQuotes({quotes}: {quotes: TestimonyQuote[]}): JSX.Element {
 	return <div className="quotesContainer col centerCross">
 		{quotes.map((quote, i) => <div className="quoteContainer" key={i}>
+			<div className="quoteIconContainer"><div className="quoteIconInnerContainer"></div></div>
 			<div className="sentenceContainer">
 				{quote.sentences.map((sentence, j) => <p className="sentence" key={`${i},${j}`}>
 					{sentence}

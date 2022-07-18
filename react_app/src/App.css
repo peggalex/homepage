@@ -298,6 +298,7 @@ html {
   /*text-align: center;*/
   /*color: royalblue;*/
   color: var(--headingColour);
+  line-height: 1;
   /*color: var(--backgroundColour);*/
 }
 
@@ -609,15 +610,23 @@ footer > p {
   z-index: 1;
 }
 
-.testimony .quoteContainer:before {
+.testimony .quoteIconContainer {
   position: absolute;
-  content: '“';
+  top: -3.5rem;
+  left: -2.5rem;
+  z-index: -1;
+}
+
+.testimony .quoteIconInnerContainer {
   font-family: 'Gilda Display', serif;
   font-size: 15rem;
   color: var(--grey200);
-  z-index: -1;
-  top: -3.5rem;
-  left: -2.5rem;
+  overflow: hidden;
+  height: 10rem;
+}
+
+.testimony .quoteIconInnerContainer:before {
+  content: '“';
 }
 
 .testimony .authorContainer {
@@ -662,7 +671,9 @@ button.projectLink > svg > *{
 button.projectLink {
   background-color: transparent;
   border: none;
-  margin-right: 0.2rem;
+  margin-right: 0.5rem;
+  padding: 0.25rem 0;
+  position: relative;
 }
 
 button.projectLink:hover > svg > * {
