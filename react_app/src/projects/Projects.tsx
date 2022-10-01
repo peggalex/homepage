@@ -735,8 +735,8 @@ export const WordleBotProj: Project = {
 export const MeetingPlanner: Project = {
 	name: "Meeting Planner",
 	date: new Date(2021, 7),
-	github: "https://github.com/peggalex/interviewScheduler",
-	url: "https://alexpegg.com/todo",
+	github: "https://github.com/peggalex/meetingPlanner",
+	url: "https://alexpegg.com/meetingPlanner",
 	isWorkInProgress: false,
 	images: [
 		{
