@@ -27,7 +27,7 @@ div.selectedTheme, .themeButton:hover {
     transition: border-color 1s;
     border-color: white !important;
     opacity: 1;
-
+    cursor: pointer;
 }
 
 .halfCircle {

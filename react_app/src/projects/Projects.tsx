@@ -683,39 +683,19 @@ export const WordleBotProj: Project = {
 	isWorkInProgress: false,
 	images: [
 		{
-			src: './interviewSchedulerBasic.PNG',
+			src: './wordleBotBasic.PNG',
 			isVideo: false,
-			caption: 'This is the UI (which I really like). I tried to use the same stylings as League of Legends, without using any of their trademarks.'
+			caption: 'This is the final accuracy against all possible wordle words. Takes about an hour to run.'
 		},
 		{
-			src: './rchkChampionshipsDemoPlayers.mp4',
+			src: './wordleBotDemoBrowser.mp4',
 			isVideo: true,
-			caption: 'This is the player screen. It shows k/d/a, cs per minute and a breakdown of the champions played. I have to use a riot endpoint to get profile pictures.'
+			caption: 'This is a separate module that uses selenium to play the wordle game in a browser. There is a 1:45 minute cut inbetween the first and second guess.'
 		},
 		{
-			src: './rchkChampionshipsDemoPlayersSort.mp4',
+			src: './wordleBotDemoCode.mp4',
 			isVideo: true,
-			caption: 'You can sort the players by different attributes, ascending or descending. Theres also a search, and you can click on a champion to see the matches played.'
-		},
-		{
-			src: './rchkChampionshipsDemoMatches.mp4',
-			isVideo: true,
-			caption: "These are the matches. I could complicate the UI by showing all the data, but the true match history does all that already (the button on the right). The only draw back is that the player names are blanked."
-		},		
-		{
-			src: './rchkChampionshipsDemoMatchesFilter.mp4',
-			isVideo: true,
-			caption: 'You can filter by player, and then by champion. There\'s a lot of state to store here, so I used a react reducer. You can click on a player to go to their overall stats.'
-		},
-		{
-			src: './rchkChampionshipsDemoUploadFile.mp4',
-			isVideo: true,
-			caption: 'This is how I get over the fact that you can\'t get private data via public API. If they just log in and save the html, I can parse it. I\'ve tested different html formats in firefox, chrome (mac and windows) and safari.'
-		},
-		{
-			src: './rchkChampionshipsDemoUploadHTML.mp4',
-			isVideo: true,
-			caption: 'Instead of uploading the html file, you can simply inspect element and copy the html. This is faster because there\'s no download and we don\'t send images, but is a bit more technical.'
+			caption: 'This is the terminal output while playing the browser. As we guess, the domain of each position goes down, mustHavesCount increases with yellows, and the word pool has goes down from 13k -> 345 -> 2 words.'
 		}
 	],
 	bulletPoints: [
@@ -740,40 +720,25 @@ export const MeetingPlanner: Project = {
 	isWorkInProgress: false,
 	images: [
 		{
-			src: './interviewSchedulerBasic.PNG',
+			src: './meetingPlannerBasic.png',
 			isVideo: false,
-			caption: 'This is the UI (which I really like). I tried to use the same stylings as League of Legends, without using any of their trademarks.'
+			caption: 'This is the basic UI. I tried a new style where I have text partially overflowing out of the container.'
 		},
 		{
-			src: './rchkChampionshipsDemoPlayers.mp4',
+			src: './meetingPlannerDemo.mp4',
 			isVideo: true,
-			caption: 'This is the player screen. It shows k/d/a, cs per minute and a breakdown of the champions played. I have to use a riot endpoint to get profile pictures.'
+			caption: 'This is the creation page. You can create dates with times in batch, and individually edit the times.'
 		},
 		{
-			src: './rchkChampionshipsDemoPlayersSort.mp4',
+			src: './meetingPlannerDemoAccount.mp4',
 			isVideo: true,
-			caption: 'You can sort the players by different attributes, ascending or descending. Theres also a search, and you can click on a champion to see the matches played.'
+			caption: 'You can create new accounts easily, signing in and out with click.'
 		},
 		{
-			src: './rchkChampionshipsDemoMatches.mp4',
+			src: './meetingPlannerDemoSelect.mp4',
 			isVideo: true,
-			caption: "These are the matches. I could complicate the UI by showing all the data, but the true match history does all that already (the button on the right). The only draw back is that the player names are blanked."
+			caption: "The times have a colour spectrum which indicates popularity. You can click on the times individually to see who votes for which."
 		},		
-		{
-			src: './rchkChampionshipsDemoMatchesFilter.mp4',
-			isVideo: true,
-			caption: 'You can filter by player, and then by champion. There\'s a lot of state to store here, so I used a react reducer. You can click on a player to go to their overall stats.'
-		},
-		{
-			src: './rchkChampionshipsDemoUploadFile.mp4',
-			isVideo: true,
-			caption: 'This is how I get over the fact that you can\'t get private data via public API. If they just log in and save the html, I can parse it. I\'ve tested different html formats in firefox, chrome (mac and windows) and safari.'
-		},
-		{
-			src: './rchkChampionshipsDemoUploadHTML.mp4',
-			isVideo: true,
-			caption: 'Instead of uploading the html file, you can simply inspect element and copy the html. This is faster because there\'s no download and we don\'t send images, but is a bit more technical.'
-		}
 	],
 	bulletPoints: [
 		<>App for collaboratively planning meetings.</>,

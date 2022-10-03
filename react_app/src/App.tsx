@@ -317,7 +317,7 @@ const aboutPage = () => <>
 	<Paragraph heading={null} content={<div className="col centerAll">
 			<img id="myFace" alt="Alex Pegg" src={`${mediaUrlPrefix}me.png`}></img>
 			<p style={{textAlign: 'center'}}>
-				Hi, my name is Alex Pegg. Welcome to my website! 
+				Hi, my name is Alex Pegg. Welcome to my website!
 				Here I have projects and designs I've done that I am especially proud of.
 				Feel free to look around, and have a nice day!
 			</p>
@@ -332,7 +332,7 @@ const aboutPage = () => <>
 	<Paragraph heading={"School"} content={<p>
 		I've completed an honours bachelors of science, 
 		majoring in Computer Science and Economics.
-        I've been a tutorial and marking TA for CSC108, which I thoughly enjoyed.
+        I've been a tutorial and marking TA for CSC108, which I thoroughly enjoyed.
 	</p>}
 	/>
 	<Paragraph heading={"Hobbies"} content={<p>
