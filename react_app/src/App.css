@@ -774,9 +774,12 @@ button.projectLink:hover > svg > * {
     width: 5.5rem
   }
 
+  .testimony .quoteContainer {
+    padding-left: 1rem;
+  }
+
   .testimony .quoteIconContainer {
     position: absolute;
-    top: -3rem;
     left: -1rem;
   }
 }
