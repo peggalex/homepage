@@ -329,6 +329,7 @@ html {
   align-self: flex-start;
   margin: 0;
   margin-bottom: 0.5rem;
+  margin-right: 2rem;
 }
 
 .paragraphContent .arrowRight {
