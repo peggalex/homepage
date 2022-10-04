@@ -695,7 +695,7 @@ export const WordleBotProj: Project = {
 		{
 			src: './wordleBotDemoCode.mp4',
 			isVideo: true,
-			caption: 'This is the terminal output while playing the browser. As we guess, the domain of each position goes down, mustHavesCount increases with yellows, and the word pool has goes down from 13k -> 345 -> 2 words.'
+			caption: 'This is the terminal output while playing the browser. As we guess, the domain of each position goes down, mustHavesCount increases with yellows, and the word pool goes down from 13k -> 345 -> 2 words.'
 		}
 	],
 	bulletPoints: [
